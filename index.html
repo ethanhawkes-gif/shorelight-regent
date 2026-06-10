@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Shorelight — a living memory of every guest. Built for Regent Seven Seas.">
 <title>Shorelight · Built for Regent Seven Seas</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
@@ -27,13 +28,17 @@ body{
   color:var(--ink);
   min-height:100vh;
   -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
 }
+::selection{background:rgba(196,162,101,.28);color:var(--navy)}
 
 /* ---------- Hero ---------- */
 .hero{
-  background:linear-gradient(168deg,#0C1F3F 0%,#102849 58%,#1B3A5C 100%);
+  background:
+    radial-gradient(120% 90% at 50% 0%, rgba(196,162,101,.07), transparent 55%),
+    linear-gradient(168deg,#0C1F3F 0%,#102849 58%,#1B3A5C 100%);
   border-top:3px solid var(--gold);
-  padding:92px 24px 80px;
+  padding:100px 24px 88px;
   text-align:center;
 }
 .hero-brand{
@@ -47,25 +52,36 @@ body{
 .hero-rule{
   width:42px;height:1px;
   background:rgba(196,162,101,.55);
-  margin:26px auto 30px;
+  margin:30px auto 36px;
 }
 .hero h1{
-  font-size:clamp(30px,7.5vw,46px);
-  font-weight:600;
-  letter-spacing:-0.015em;
+  font-size:clamp(30px,7.5vw,47px);
+  font-weight:500;
+  letter-spacing:-0.02em;
   color:#fff;
-  line-height:1.18;
-  max-width:600px;
-  margin:0 auto 22px;
+  line-height:1.16;
+  max-width:620px;
+  margin:0 auto 26px;
+  text-wrap:balance;
 }
 .hero h1 span{color:var(--gold)}
 .hero .sub{
   font-size:16px;
   font-weight:300;
-  color:rgba(255,255,255,.64);
-  line-height:1.75;
-  max-width:470px;
+  color:rgba(255,255,255,.66);
+  line-height:1.8;
+  max-width:480px;
   margin:0 auto;
+  text-wrap:pretty;
+}
+.hero-for{
+  margin-top:38px;
+  font-size:10.5px;
+  font-weight:600;
+  letter-spacing:.32em;
+  padding-left:.32em;
+  text-transform:uppercase;
+  color:rgba(196,162,101,.8);
 }
 
 /* ---------- Layout ---------- */
@@ -75,7 +91,8 @@ body{
   font-size:11px;font-weight:600;
   letter-spacing:.22em;text-transform:uppercase;
   color:var(--gold-deep);
-  margin-bottom:30px;
+  margin-bottom:32px;
+  white-space:nowrap;
 }
 .kicker::after{
   content:"";flex:1;height:1px;
@@ -83,14 +100,14 @@ body{
 }
 
 /* ---------- Problem ---------- */
-.problem{padding:68px 0 0}
+.problem{padding:76px 0 0}
 .stat-row{
   display:grid;
   grid-template-columns:repeat(3,1fr);
   gap:1px;
   background:var(--border);
   border:1px solid var(--border);
-  margin-bottom:40px;
+  margin-bottom:44px;
 }
 .stat{background:var(--card);padding:28px 22px 24px}
 .stat::before{
@@ -108,18 +125,21 @@ body{
 .stat .label{
   font-size:12.5px;color:var(--muted);
   margin-top:10px;line-height:1.55;
+  text-wrap:pretty;
 }
 .prose{
   font-size:16px;line-height:1.8;
   color:var(--body-text);
   margin-bottom:1.5em;
+  text-wrap:pretty;
 }
+.problem .prose:first-of-type{font-size:17px}
 .prose strong{color:var(--navy);font-weight:600}
 
 /* ---------- Divider ---------- */
 .rule{
   display:flex;align-items:center;gap:18px;
-  margin:56px 0;
+  margin:64px 0;
 }
 .rule::before,.rule::after{
   content:"";flex:1;height:1px;background:var(--border);
@@ -133,6 +153,7 @@ body{
 .what{
   background:var(--card);
   border:1px solid var(--border);
+  border-top:2px solid var(--gold);
   padding:46px 44px 30px;
   margin:0 0 56px;
 }
@@ -142,6 +163,13 @@ body{
   color:var(--navy);
 }
 .what h3{margin-bottom:8px}
+.what-intro{
+  font-size:13.5px;color:var(--muted);
+  line-height:1.7;
+  margin:8px 0 24px;
+  max-width:580px;
+  text-wrap:pretty;
+}
 .feature{
   display:grid;
   grid-template-columns:46px 1fr;
@@ -155,10 +183,30 @@ body{
   font-size:11px;font-weight:600;
   letter-spacing:.18em;
   color:var(--gold-deep);
+  font-variant-numeric:tabular-nums;
   padding-top:5px;
 }
-.feature .text{font-size:15px;line-height:1.7;color:var(--body-text)}
+.feature .text{font-size:15px;line-height:1.7;color:var(--body-text);text-wrap:pretty}
 .feature .text strong{color:var(--navy);font-weight:600}
+
+/* ---------- Earned depth ladder ---------- */
+.tier{
+  display:grid;
+  grid-template-columns:104px 1fr;
+  gap:0 16px;
+  padding:22px 0;
+  border-bottom:1px solid var(--border);
+  align-items:start;
+}
+.tier:last-child{border-bottom:none}
+.tier-label{
+  font-size:10.5px;font-weight:700;
+  letter-spacing:.18em;text-transform:uppercase;
+  color:var(--gold-deep);
+  padding-top:5px;
+}
+.tier-text{font-size:15px;line-height:1.7;color:var(--body-text);text-wrap:pretty}
+.tier-text strong{color:var(--navy);font-weight:600}
 
 /* ---------- Why Regent ---------- */
 .for-regent{
@@ -174,6 +222,7 @@ body{
   font-size:15px;line-height:1.7;color:var(--body-text);
   padding:10px 0 10px 32px;
   position:relative;
+  text-wrap:pretty;
 }
 .for-regent li::before{
   content:"";position:absolute;
@@ -185,41 +234,50 @@ body{
 
 /* ---------- CTA ---------- */
 .cta-section{
-  margin-top:72px;
-  background:linear-gradient(168deg,#0C1F3F 0%,#13294B 100%);
+  margin-top:80px;
+  background:
+    radial-gradient(120% 90% at 50% 0%, rgba(196,162,101,.06), transparent 55%),
+    linear-gradient(168deg,#0C1F3F 0%,#13294B 100%);
   text-align:center;
-  padding:76px 24px 80px;
+  padding:84px 24px 88px;
 }
 .cta-eyebrow{
   font-size:10.5px;font-weight:600;
   letter-spacing:.34em;padding-left:.34em;
   text-transform:uppercase;
   color:var(--gold);
-  margin-bottom:20px;
+  margin-bottom:22px;
 }
 .cta-section h2{
   font-size:clamp(22px,5vw,28px);
-  font-weight:600;letter-spacing:-0.01em;
+  font-weight:500;letter-spacing:-0.015em;
   color:#fff;line-height:1.35;
-  max-width:440px;margin:0 auto 34px;
+  max-width:440px;margin:0 auto;
+  text-wrap:balance;
+}
+.cta-rule{
+  width:28px;height:1px;
+  background:rgba(196,162,101,.5);
+  margin:30px auto 32px;
 }
 .cta-btn{
   display:inline-block;
   background:var(--gold);
   color:var(--navy);
   font-size:13px;font-weight:600;
-  letter-spacing:.12em;text-transform:uppercase;
+  letter-spacing:.14em;text-transform:uppercase;
   padding:18px 46px;
   border-radius:2px;
   text-decoration:none;
   transition:background .25s ease,transform .25s ease;
 }
 .cta-btn:hover{background:#D2B27A;transform:translateY(-1px)}
+.cta-btn:focus-visible{outline:1px solid var(--gold);outline-offset:4px}
 .trust{
   font-size:11.5px;
   color:rgba(255,255,255,.45);
-  margin:26px auto 0;
-  line-height:1.75;
+  margin:28px auto 0;
+  line-height:1.8;
   max-width:380px;
 }
 
@@ -227,27 +285,33 @@ body{
 footer{
   background:var(--navy-deep);
   border-top:1px solid rgba(196,162,101,.22);
-  padding:26px 20px;
+  padding:28px 20px;
   text-align:center;
 }
 footer p{
   font-size:10px;
-  letter-spacing:.18em;text-transform:uppercase;
+  letter-spacing:.2em;text-transform:uppercase;
   color:rgba(255,255,255,.35);
 }
 
 /* ---------- Mobile ---------- */
 @media(max-width:640px){
-  .hero{padding:64px 22px 58px}
-  .problem{padding-top:52px}
+  .hero{padding:68px 22px 60px}
+  .hero-rule{margin:26px auto 30px}
+  .hero-for{margin-top:32px}
+  .problem{padding-top:56px}
   .stat-row{grid-template-columns:1fr}
   .stat{padding:24px 22px 22px}
   .stat .num{font-size:30px}
   .what{padding:32px 24px 18px}
   .feature{grid-template-columns:38px 1fr;gap:0 12px}
+  .tier{grid-template-columns:1fr;row-gap:8px;padding:20px 0}
+  .tier-label{padding-top:0}
   .for-regent{padding:32px 24px}
-  .rule{margin:44px 0}
-  .cta-section{margin-top:56px;padding:60px 22px 64px}
+  .rule{margin:48px 0}
+  .cta-section{margin-top:60px;padding:64px 22px 68px}
+  .cta-rule{margin:26px auto 28px}
+  .cta-btn{padding:16px 32px;font-size:12px}
 }
 </style>
 </head>
@@ -256,8 +320,9 @@ footer p{
 <div class="hero">
 <div class="hero-brand">Shorelight</div>
 <div class="hero-rule"></div>
-<h1>What your best butler <span>knows</span>, your ship never forgets.</h1>
-<div class="sub">A great butler makes every guest feel known — the pillow they prefer, the granddaughter's name, the table they like at sunset. But when he rotates off, all of it walks down the gangway with him. Shorelight keeps it aboard: a living memory of every guest, carried voyage to voyage and butler to butler. Built for Regent Seven Seas.</div>
+<h1>What your best butler knows, your ship <span>never forgets</span>.</h1>
+<div class="sub">A great butler makes a guest feel known: the pillow they prefer, the granddaughter&rsquo;s name, the table they ask for at sunset. When he rotates off, all of it walks down the gangway with him. Shorelight keeps it aboard&nbsp;&mdash; a living memory of every guest, carried voyage to voyage, butler to butler.</div>
+<div class="hero-for">Built for Regent Seven Seas</div>
 </div>
 
 <div class="container">
@@ -267,7 +332,7 @@ footer p{
 <div class="stat-row">
 <div class="stat">
 <div class="num">~3</div>
-<div class="label">Sailings before guest preference data disappears from operational systems</div>
+<div class="label">Sailings before a guest&rsquo;s preference data disappears from operational systems</div>
 </div>
 <div class="stat">
 <div class="num">99%</div>
@@ -275,18 +340,18 @@ footer p{
 </div>
 <div class="stat">
 <div class="num">$0</div>
-<div class="label">The cost of the knowledge a butler takes with them when they rotate off ship</div>
+<div class="label">The recorded value of everything a butler knows on the day they rotate off ship</div>
 </div>
 </div>
 
 <p class="prose">Your butlers are extraordinary. A Titanium Seven Seas Society member steps aboard and feels <strong>known</strong>. Not because of a CRM. Because a person remembered: what they drink, where they like to sit, the artist their wife loves, the way they read quietly until Day 5 and seek conversation after.</p>
 
-<p class="prose">But that knowledge lives in one person's head. When that butler rotates to another ship, changes contracts, or leaves the industry, <strong>twelve voyages of intimacy reset to zero.</strong> The guest doesn't complain. They simply don't rebook the Regent Suite.</p>
+<p class="prose">But that knowledge lives in one person&rsquo;s head. When that butler rotates to another ship, changes contracts, or leaves the industry, <strong>twelve voyages of intimacy reset to zero.</strong> The guest doesn&rsquo;t complain. They simply don&rsquo;t rebook the Regent Suite.</p>
 
-<p class="prose">Ritz-Carlton solved a version of this on land with Mystique. Four Seasons is moving to app-based guest intelligence. <strong>No cruise line has cracked it yet.</strong></p>
+<p class="prose">Ritz-Carlton solved a version of this on land with Mystique. Four Seasons is moving to app-based guest intelligence. <strong>At sea, no cruise line has solved it.</strong></p>
 </div>
 
-<div class="rule"><span>◆</span></div>
+<div class="rule"><span>&#9670;</span></div>
 
 <div class="what">
 <h3>What Shorelight Does</h3>
@@ -296,11 +361,11 @@ footer p{
 </div>
 <div class="feature">
 <div class="no">02</div>
-<div class="text"><strong>Voice-first, built for crew.</strong> "What wine does Mrs. Henderson prefer?" Answered in 2 seconds, in the butler's own language. No screens. No typing. No training manual.</div>
+<div class="text"><strong>Voice-first, built for crew.</strong> &ldquo;What wine does Mrs.&nbsp;Henderson prefer?&rdquo; Answered in two seconds, in the butler&rsquo;s own language. No screens. No typing. No training manual.</div>
 </div>
 <div class="feature">
 <div class="no">03</div>
-<div class="text"><strong>A quiet engine for surprise.</strong> High-impact, low-cost gestures, tailored to each guest. A $30 ceramics piece that becomes a story told for years. A dinner seating that reunites friends from a previous voyage.</div>
+<div class="text"><strong>It prompts the rare gesture.</strong> Small, precise, inexpensive, and exact to the guest. A $30 ceramics piece that becomes a story told for years. A dinner seating that reunites friends from a previous voyage.</div>
 </div>
 <div class="feature">
 <div class="no">04</div>
@@ -308,28 +373,28 @@ footer p{
 </div>
 </div>
 
-<div class="what" style="border-top:2px solid var(--gold)">
+<div class="what">
 <h3>It Starts With Zero Integration</h3>
-<p style="font-size:13.5px;color:var(--muted);line-height:1.7;margin:8px 0 24px;max-width:580px">No IT project to begin. Shorelight earns its way deeper — from public signal, to your own channels, to the moments that compound into loyalty.</p>
+<p class="what-intro">There is no IT project to begin. Shorelight earns its way deeper: from public signal, to your own channels, to the moments that compound into loyalty.</p>
 
-<div style="display:grid;grid-template-columns:104px 1fr;gap:0 16px;padding:22px 0;border-bottom:1px solid var(--border);align-items:start">
-<div style="font-size:10.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--gold-deep);padding-top:5px">Start</div>
-<div style="font-size:15px;line-height:1.7;color:var(--body-text)"><strong style="color:var(--navy)">Start with what guests already make public.</strong> No integration, no security review, no IT queue — Shorelight works from the signal each guest has already put into the world. You know who is aboard, and what would move them, before they step on deck.</div>
+<div class="tier">
+<div class="tier-label">Start</div>
+<div class="tier-text"><strong>Start with what guests already make public.</strong> No integration, no security review, no IT queue. Shorelight works from the signal each guest has already put into the world. You know who is aboard, and what would move them, before they step on deck.</div>
 </div>
-<div style="display:grid;grid-template-columns:104px 1fr;gap:0 16px;padding:22px 0;border-bottom:1px solid var(--border);align-items:start">
-<div style="font-size:10.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--gold-deep);padding-top:5px">Connect</div>
-<div style="font-size:15px;line-height:1.7;color:var(--body-text)"><strong style="color:var(--navy)">Connect your channels when you are ready.</strong> Fold in the call center, email, and guest surveys on your own timetable — each one an addition, never an overhaul. The record fills itself in, first inquiry to post-cruise note, in a single view.</div>
+<div class="tier">
+<div class="tier-label">Connect</div>
+<div class="tier-text"><strong>Connect your channels when you are ready.</strong> Fold in the call center, email, and guest surveys on your own timetable. Each is an addition, never an overhaul. The record completes itself, first inquiry to post-cruise note, in a single view.</div>
 </div>
-<div style="display:grid;grid-template-columns:104px 1fr;gap:0 16px;padding:22px 0;align-items:start">
-<div style="font-size:10.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--gold-deep);padding-top:5px">Shape</div>
-<div style="font-size:15px;line-height:1.7;color:var(--body-text)"><strong style="color:var(--navy)">Shape the moments that matter.</strong> Every layer serves one question: which gesture, for which guest, at which moment. Get that right, sailing after sailing, and you build <strong style="color:var(--navy)">guest equity</strong> — the compounding loyalty that satisfaction scores and lifetime value only measure once it is already won or lost.</div>
+<div class="tier">
+<div class="tier-label">Shape</div>
+<div class="tier-text"><strong>Shape the moments that matter.</strong> Every layer serves one question: which gesture, for which guest, at which moment. Get that right, sailing after sailing, and you build <strong>guest equity</strong>&nbsp;&mdash; the compounding loyalty that satisfaction scores and lifetime value only measure once it is already won or lost.</div>
 </div>
 </div>
 
 <div class="for-regent">
 <h3>Why This Was Built for Regent</h3>
 <ul>
-<li><strong>All-inclusive by design.</strong> Zero marginal cost of personalization. Every surprise is already "included."</li>
+<li><strong>All-inclusive by design.</strong> Zero marginal cost of personalization. Every surprise is already &ldquo;included.&rdquo;</li>
 <li><strong>750 guests per ship.</strong> Small enough for true intimacy, large enough to need a system.</li>
 <li><strong>Seven Seas Society.</strong> Repeat guests create longitudinal depth. Each voyage compounds what you know.</li>
 <li><strong>Butler culture.</strong> The instinct already exists. Shorelight lets it outlast the individual.</li>
@@ -340,14 +405,15 @@ footer p{
 </div>
 
 <div class="cta-section">
-<div class="cta-eyebrow">The Demo</div>
+<div class="cta-eyebrow">The Demonstration</div>
 <h2>See it with real Regent guest profiles.</h2>
-<a href="regent.html" class="cta-btn">Open the Shorelight Demo</a>
-<div class="trust">All profiles built from publicly available information.<br>No private data. No surveillance. Personalized, never surveilled.</div>
+<div class="cta-rule"></div>
+<a href="regent" class="cta-btn">View the Demonstration</a>
+<div class="trust">Every profile assembled from publicly available information.<br>Nothing private. Personalized, never surveilled.</div>
 </div>
 
 <footer>
-<p>Shorelight · Hawkes &amp; Kwortnik Research</p>
+<p>Shorelight &middot; Hawkes &amp; Kwortnik Research</p>
 </footer>
 
 </body>
