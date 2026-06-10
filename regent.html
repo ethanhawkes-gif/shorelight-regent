@@ -1,0 +1,1423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shorelight — Regent Seven Seas Cruises</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   SHORELIGHT — crew intelligence for Regent Seven Seas
+   Editorial luxury system: warm paper, navy ink, gold hairlines.
+   ============================================================ */
+:root{
+  /* — original tokens (preserved names, refined values) — */
+  --brand:#1B3A5C;
+  --brand-light:#EAEFF4;
+  --brand-dark:#0C2138;
+  --gold:#C4A265;
+  --gold-light:#D8C396;
+  --regent-navy:#0C1F3F;
+  --bg:#F7F5F1;
+  --sidebar-bg:#0C1F3F;
+  --card:#FFFFFF;
+  --text:#1C2230;
+  --muted:#85806F;
+  --border:#E8E3D9;
+  --danger:#A1352C;
+  --warning:#96671C;
+  --success:#2E6B4F;
+  --info:#2B5377;
+  --radius:8px;
+  --shadow:0 1px 2px rgba(12,31,63,.04),0 10px 28px rgba(12,31,63,.05);
+  /* — additive tokens — */
+  --ink:#1C2230;
+  --body:#3D4453;
+  --gold-deep:#A9854F;
+  --gold-ink:#8A6A33;
+  --surface-soft:#FBFAF7;
+  --hairline-gold:rgba(196,162,101,.42);
+  --hairline-gold-soft:rgba(196,162,101,.22);
+  --shadow-hairline:0 1px 0 rgba(28,34,48,.03);
+  --ease:cubic-bezier(.33,0,.2,1);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+  font-family:'Inter',system-ui,-apple-system,sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  min-height:100vh;
+  display:flex;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  text-rendering:optimizeLegibility;
+  font-feature-settings:'kern' 1,'liga' 1;
+}
+
+/* ————— Sidebar: deep navy, lit by hairlines ————— */
+.sidebar{
+  width:240px;
+  background:linear-gradient(180deg,var(--sidebar-bg) 0%,#0A1B37 100%);
+  min-height:100vh;padding:0;display:flex;flex-direction:column;
+  position:fixed;left:0;top:0;bottom:0;z-index:50;
+  box-shadow:inset -1px 0 0 rgba(255,255,255,.04);
+}
+@media(max-width:1199px){body{display:block}.sidebar{display:none!important}.main{margin-left:0!important;width:100%}}
+.sidebar-brand{
+  padding:26px 22px 20px;
+  border-bottom:1px solid rgba(255,255,255,.07);
+  background:linear-gradient(180deg,rgba(196,162,101,.06),rgba(196,162,101,0) 70%);
+}
+.sidebar-brand h1{
+  color:#fff;font-size:17px;font-weight:600;letter-spacing:.02em;
+  display:flex;align-items:center;gap:9px;
+}
+.sidebar-brand h1 span{color:var(--gold);font-size:19px;line-height:1}
+.sidebar-brand p{
+  color:rgba(255,255,255,.42);font-size:9.5px;font-weight:500;
+  letter-spacing:.18em;text-transform:uppercase;margin-top:7px;
+}
+.sidebar-nav{padding:16px 10px;flex:1}
+.nav-section{
+  color:rgba(196,162,101,.55);font-size:9.5px;font-weight:600;
+  letter-spacing:.18em;text-transform:uppercase;padding:16px 12px 8px;
+}
+.nav-item{
+  display:flex;align-items:center;gap:11px;
+  padding:9px 12px;border-radius:6px;
+  color:rgba(255,255,255,.62);font-size:13px;font-weight:450;
+  letter-spacing:.005em;cursor:pointer;
+  transition:background .18s var(--ease),color .18s var(--ease),box-shadow .18s var(--ease);
+  margin-bottom:2px;
+}
+.nav-item:hover{background:rgba(255,255,255,.05);color:rgba(255,255,255,.94)}
+.nav-item.active{
+  background:linear-gradient(90deg,rgba(196,162,101,.13),rgba(196,162,101,.02));
+  color:#fff;font-weight:500;
+  box-shadow:inset 2px 0 0 var(--gold);
+}
+.nav-item .icon{font-size:17px;opacity:.6;transition:opacity .18s var(--ease)}
+.nav-item.active .icon{opacity:1}
+.sidebar-footer{padding:18px 20px;border-top:1px solid rgba(255,255,255,.07)}
+.sidebar-footer .ship{
+  color:rgba(255,255,255,.6);font-size:11px;font-weight:500;
+  letter-spacing:.02em;display:flex;align-items:center;gap:8px;
+}
+.sidebar-footer .ship .dot{
+  width:6px;height:6px;border-radius:50%;background:#4E9A77;
+  box-shadow:0 0 0 3px rgba(78,154,119,.18);
+}
+.sidebar-footer .user{
+  color:rgba(255,255,255,.32);font-size:9.5px;
+  letter-spacing:.1em;text-transform:uppercase;margin-top:8px;
+}
+
+/* ————— Main shell ————— */
+.main{margin-left:240px;flex:1;min-height:100vh}
+.topbar{
+  background:rgba(255,255,255,.94);
+  -webkit-backdrop-filter:blur(10px) saturate(1.1);
+  backdrop-filter:blur(10px) saturate(1.1);
+  border-bottom:1px solid var(--border);
+  padding:13px 32px;display:flex;align-items:center;justify-content:space-between;
+  position:sticky;top:0;z-index:40;
+}
+.topbar-left{display:flex;align-items:center;gap:18px}
+.breadcrumb{font-size:12px;color:var(--muted);letter-spacing:.01em}
+.breadcrumb strong{color:var(--text);font-weight:600}
+.search-box{
+  background:var(--surface-soft);border:1px solid var(--border);border-radius:8px;
+  padding:8px 14px;font-size:13px;width:280px;outline:none;
+  color:var(--text);font-family:inherit;
+  transition:border-color .2s var(--ease),box-shadow .2s var(--ease),background .2s var(--ease);
+}
+.search-box::placeholder{color:var(--muted)}
+.search-box:focus{
+  border-color:var(--brand);background:#fff;
+  box-shadow:0 0 0 3px rgba(27,58,92,.07);
+}
+.topbar-right{display:flex;align-items:center;gap:12px}
+.topbar-btn{
+  background:#fff;border:1px solid var(--border);border-radius:8px;
+  padding:7px 13px;font-size:12px;font-weight:500;letter-spacing:.01em;
+  color:var(--body);cursor:pointer;display:flex;align-items:center;gap:5px;
+  font-family:inherit;
+  transition:border-color .18s var(--ease),color .18s var(--ease),box-shadow .18s var(--ease);
+  box-shadow:var(--shadow-hairline);
+}
+.topbar-btn:hover{border-color:var(--gold);color:var(--brand);box-shadow:0 1px 6px rgba(196,162,101,.18)}
+.live-badge{
+  background:var(--success);color:#fff;font-size:9.5px;font-weight:600;
+  letter-spacing:.1em;text-transform:uppercase;
+  padding:4px 10px;border-radius:12px;display:flex;align-items:center;gap:5px;
+}
+.live-badge::before{content:'';width:5px;height:5px;border-radius:50%;background:#fff;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+.content{padding:28px 32px 72px;max-width:1480px}
+
+/* ————— View tabs: quiet segmented control ————— */
+.view-tabs{
+  display:flex;gap:3px;background:var(--card);border:1px solid var(--border);
+  border-radius:var(--radius);padding:4px;margin-bottom:26px;width:fit-content;
+  box-shadow:var(--shadow-hairline);
+}
+.vtab{
+  padding:8px 20px;border-radius:6px;font-size:13px;font-weight:500;
+  letter-spacing:.01em;cursor:pointer;color:var(--muted);
+  transition:color .18s var(--ease),background .18s var(--ease),box-shadow .18s var(--ease);
+}
+.vtab:hover{color:var(--text);background:var(--surface-soft)}
+.vtab.active{
+  background:var(--regent-navy);color:#fff;
+  box-shadow:0 2px 8px rgba(12,31,63,.22),inset 0 -2px 0 rgba(196,162,101,.55);
+}
+
+/* ————— Guest identity card ————— */
+.guest-card{
+  background:var(--card);border:1px solid var(--border);border-radius:var(--radius);
+  padding:28px;display:flex;gap:22px;align-items:flex-start;
+  box-shadow:var(--shadow);margin-bottom:22px;position:relative;
+  background-image:linear-gradient(90deg,var(--hairline-gold-soft),var(--hairline-gold),var(--hairline-gold-soft));
+  background-repeat:no-repeat;background-size:100% 1px;background-position:top;
+}
+.avatar{
+  width:64px;height:64px;border-radius:50%;
+  background:linear-gradient(140deg,var(--brand) 0%,var(--regent-navy) 100%);
+  display:flex;align-items:center;justify-content:center;
+  color:#fff;font-size:21px;font-weight:600;letter-spacing:.03em;flex-shrink:0;
+  box-shadow:0 0 0 2px #fff,0 0 0 3px var(--hairline-gold);
+}
+.guest-meta h2{font-size:clamp(19px,1.1vw + 12px,22px);font-weight:600;letter-spacing:-.012em;margin-bottom:3px;color:var(--ink)}
+.guest-meta .subtitle{font-size:13px;color:var(--muted);letter-spacing:.01em;margin-bottom:12px}
+.tags{display:flex;flex-wrap:wrap;gap:6px}
+.tag{
+  font-size:10.5px;font-weight:500;letter-spacing:.045em;
+  padding:4px 11px;border-radius:999px;
+  background:var(--surface-soft);color:#6E6857;border:1px solid var(--border);
+}
+.tag.vip{background:rgba(196,162,101,.1);color:var(--gold-ink);border-color:rgba(196,162,101,.38)}
+.tag.pref{background:var(--brand-light);color:var(--brand-dark);border-color:rgba(27,58,92,.16)}
+.confidence-pill{margin-left:auto;display:flex;flex-direction:column;align-items:flex-end;gap:4px}
+.confidence-pill .score{
+  font-size:30px;font-weight:600;letter-spacing:-.02em;color:var(--brand);
+  font-variant-numeric:tabular-nums;line-height:1.1;
+}
+.confidence-pill .label{
+  font-size:9.5px;font-weight:500;color:var(--muted);
+  text-transform:uppercase;letter-spacing:.16em;padding-right:.16em;
+}
+
+/* ————— Phase bar ————— */
+.phase-bar{display:flex;gap:0;margin-bottom:22px;box-shadow:var(--shadow-hairline);border-radius:var(--radius)}
+.ptab{
+  flex:1;padding:11px 16px;text-align:center;font-size:12px;font-weight:500;
+  letter-spacing:.02em;cursor:pointer;border:1px solid var(--border);
+  background:var(--card);color:var(--muted);
+  transition:background .18s var(--ease),color .18s var(--ease),border-color .18s var(--ease);
+}
+.ptab:first-child{border-radius:var(--radius) 0 0 var(--radius)}
+.ptab:last-child{border-radius:0 var(--radius) var(--radius) 0}
+.ptab.active{
+  background:var(--regent-navy);color:#fff;border-color:var(--regent-navy);
+  font-weight:600;box-shadow:inset 0 -2px 0 rgba(196,162,101,.5);
+}
+.ptab .count{font-size:10px;opacity:.62;margin-left:5px;font-variant-numeric:tabular-nums}
+
+/* ————— Cards & grid ————— */
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:22px}
+.grid-full{grid-column:1/-1}
+.card{
+  background:var(--card);border:1px solid var(--border);border-radius:var(--radius);
+  overflow:hidden;box-shadow:var(--shadow);
+}
+.card-header{
+  padding:15px 20px;border-bottom:1px solid var(--border);
+  display:flex;align-items:center;justify-content:space-between;
+  background:linear-gradient(180deg,#fff,var(--surface-soft));
+}
+.card-title{
+  font-size:11px;font-weight:600;text-transform:uppercase;
+  letter-spacing:.14em;color:var(--ink);
+  display:flex;align-items:center;gap:9px;
+}
+.card-badge{font-size:9.5px;font-weight:600;letter-spacing:.06em;padding:3px 9px;border-radius:4px}
+.badge-live{background:rgba(46,107,79,.09);color:var(--success)}
+.badge-ai{background:rgba(27,58,92,.08);color:var(--brand)}
+.card-body{padding:20px}
+.card-body p{font-size:13px;line-height:1.65;margin-bottom:11px;color:var(--body)}
+.card-body p:last-child{margin-bottom:0}
+
+/* ————— Insight rows: tinted, hushed ————— */
+.insight-row{
+  display:flex;gap:12px;padding:13px 15px;border-radius:6px;
+  margin-bottom:8px;font-size:13px;line-height:1.55;color:var(--body);
+}
+.insight-row.green{background:rgba(46,107,79,.06);border:1px solid rgba(46,107,79,.16)}
+.insight-row.amber{background:rgba(150,103,28,.06);border:1px solid rgba(150,103,28,.18)}
+.insight-row.red{background:rgba(161,53,44,.05);border:1px solid rgba(161,53,44,.16)}
+.insight-row.blue{background:rgba(43,83,119,.05);border:1px solid rgba(43,83,119,.16)}
+.insight-icon{font-size:16px;flex-shrink:0;margin-top:1px}
+
+/* ————— Timeline: gold-point hairline ————— */
+.tl{position:relative;padding-left:22px}
+.tl::before{
+  content:'';position:absolute;left:5px;top:8px;bottom:8px;width:1px;
+  background:linear-gradient(180deg,var(--hairline-gold),var(--border));
+}
+.tl-item{position:relative;padding:0 0 18px 16px}
+.tl-item::before{
+  content:'';position:absolute;left:-21px;top:5px;width:9px;height:9px;
+  border-radius:50%;background:var(--card);border:2px solid var(--gold);
+}
+.tl-time{
+  font-size:10px;font-weight:600;color:var(--gold-ink);
+  text-transform:uppercase;letter-spacing:.12em;
+}
+.tl-text{font-size:13px;margin-top:3px;line-height:1.55;color:var(--body)}
+.tl-meta{font-size:11px;color:var(--muted);margin-top:3px;letter-spacing:.01em}
+
+/* ————— Crew prompts: the gilded margin ————— */
+.crew-prompt{
+  background:var(--card);border:1px solid var(--border);border-radius:var(--radius);
+  padding:18px 20px;margin-bottom:10px;
+  border-left:2px solid var(--gold);
+  box-shadow:var(--shadow-hairline);
+}
+.crew-prompt .timing{
+  font-size:9.5px;font-weight:600;text-transform:uppercase;
+  letter-spacing:.16em;color:var(--info);margin-bottom:6px;
+}
+.crew-prompt .script{
+  font-size:14.5px;font-style:italic;font-weight:450;line-height:1.6;
+  color:var(--ink);margin-bottom:7px;letter-spacing:.002em;
+}
+.crew-prompt .rationale{font-size:12px;color:var(--muted);line-height:1.55}
+.crew-prompt .source-tag{
+  display:inline-block;font-size:10px;font-weight:500;letter-spacing:.04em;
+  color:var(--brand);background:rgba(27,58,92,.07);
+  padding:3px 8px;border-radius:4px;margin-top:6px;
+}
+
+/* ————— KPIs: numbers as quiet authority ————— */
+.kpi-row{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:22px}
+.kpi{
+  background:var(--card);border:1px solid var(--border);border-radius:var(--radius);
+  padding:20px 16px 17px;text-align:center;box-shadow:var(--shadow);
+  background-image:linear-gradient(90deg,transparent 20%,var(--hairline-gold-soft) 50%,transparent 80%);
+  background-repeat:no-repeat;background-size:100% 1px;background-position:top;
+}
+.kpi .val{
+  font-size:27px;font-weight:600;letter-spacing:-.02em;color:var(--ink);
+  font-variant-numeric:tabular-nums;line-height:1.15;
+}
+.kpi .lbl{
+  font-size:9.5px;font-weight:500;text-transform:uppercase;
+  letter-spacing:.14em;color:var(--muted);margin-top:6px;
+}
+.kpi .delta{font-size:11px;font-weight:600;color:var(--success);margin-top:4px;font-variant-numeric:tabular-nums}
+
+/* JS view-switcher — do not alter */
+.phase{display:none}.phase.active{display:block}
+.view{display:none}.view.active{display:block}
+
+.guest-selector{
+  background:var(--card);border:1px solid var(--border);border-radius:var(--radius);
+  padding:13px 18px;margin-bottom:18px;display:flex;gap:8px;align-items:center;flex-wrap:wrap;
+  box-shadow:var(--shadow-hairline);
+}
+@media(max-width:1199px){.guest-selector{overflow-x:auto;flex-wrap:nowrap;-webkit-overflow-scrolling:touch;padding:12px 14px;gap:6px}.guest-selector button{flex-shrink:0;font-size:11px!important;padding:5px 10px!important}.guest-selector span{flex-shrink:0;font-size:9px!important}}
+@media(max-width:1024px){.mobile-header{display:flex!important}.content{padding:20px 20px 48px}.topbar{padding:10px 16px}.search-box{width:160px}.grid{grid-template-columns:1fr}.kpi-row{grid-template-columns:repeat(2,1fr)}.guest-card{flex-direction:column;padding:18px}.confidence-pill{margin-left:0;flex-direction:row;align-items:center;gap:8px}.view-tabs{width:100%;overflow-x:auto}.vtab{padding:8px 12px;font-size:11px;white-space:nowrap}.phase-bar{overflow-x:auto}.ptab{white-space:nowrap;font-size:11px}}
+@media(max-width:768px){.kpi-row{grid-template-columns:repeat(2,1fr)}.topbar{flex-wrap:wrap;gap:8px}.topbar-left{width:100%}.search-box{width:100%;margin-top:4px}.topbar-right{width:100%;justify-content:flex-end}.content{padding:16px 16px 48px}.avatar{width:52px;height:52px;font-size:18px}.guest-meta h2{font-size:17px}.guest-selector{gap:4px;padding:10px 12px}.tags{gap:4px}.tag{font-size:10px;padding:2px 8px}.card-body{padding:14px}.card-body p{font-size:12px}.insight-row{font-size:12px;padding:10px 12px}.crew-prompt .script{font-size:13px}.crew-prompt .timing{font-size:9px}}
+
+/* Moment Engine — ranking wedge */
+.moment{display:flex;gap:15px;align-items:flex-start;padding:16px 0;border-bottom:1px solid var(--border)}
+.moment:last-of-type{border-bottom:none}
+.moment-rank{
+  flex-shrink:0;width:30px;height:30px;border-radius:50%;
+  background:var(--regent-navy);color:#fff;font-size:14px;font-weight:600;
+  font-variant-numeric:tabular-nums;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 0 0 1px var(--hairline-gold),inset 0 0 0 1px rgba(255,255,255,.08);
+}
+.moment-body{flex:1;min-width:0}
+.moment-title{font-size:14.5px;font-weight:600;letter-spacing:-.005em;color:var(--ink);margin-bottom:4px}
+.moment-why{font-size:12.5px;line-height:1.6;color:var(--body);margin-bottom:9px}
+.moment-tags{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.moment-tags .lever{
+  font-size:9.5px;font-weight:600;padding:3px 9px;border-radius:4px;
+  text-transform:uppercase;letter-spacing:.08em;
+}
+.lever-repeat{background:rgba(27,58,92,.08);color:var(--brand)}
+.lever-adv{background:rgba(46,107,79,.09);color:var(--success)}
+.lever-infl{background:rgba(196,162,101,.14);color:var(--gold-ink)}
+.moment-tags .conf{
+  font-size:10px;font-weight:600;color:var(--body);font-variant-numeric:tabular-nums;
+  background:var(--surface-soft);border:1px solid var(--border);padding:3px 9px;border-radius:4px;
+}
+.moment-tags .src{font-size:10px;color:var(--muted);font-style:italic}
+
+/* Mobile horizontal-overflow safety: bound the page and let scroll-strips clip+scroll instead of widening the layout */
+@media(max-width:1199px){html,body{overflow-x:hidden;max-width:100%}.main{min-width:0;max-width:100vw;overflow-x:hidden}.content,.view{min-width:0;max-width:100%}.guest-selector,.view-tabs,.phase-bar{max-width:100%}.guest-card{flex-wrap:wrap}.guest-meta{min-width:0;flex:1}}
+</style>
+</head>
+<body>
+
+<aside class="sidebar">
+<div class="sidebar-brand">
+<h1><span style="color:var(--gold)">🔆</span> Shorelight</h1>
+<p style="color:rgba(255,255,255,.35)">Crew Intelligence Platform</p>
+<p style="color:var(--gold);font-size:9px;letter-spacing:.1em;text-transform:uppercase;margin-top:8px;opacity:.6">Configured for Regent Seven Seas</p>
+</div>
+<nav class="sidebar-nav">
+<div class="nav-section">Intelligence</div>
+<div class="nav-item" onclick="navTo(this,'crew')"><span class="icon">👤</span> Guest Profiles</div>
+<div class="nav-item" onclick="navTo(this,'crew')"><span class="icon">🔍</span> Guest Lookup</div>
+<div class="nav-item" onclick="navTo(this,'exec')"><span class="icon">📊</span> Voyage Dashboard</div>
+<div class="nav-item" onclick="navTo(this,'crew')"><span class="icon">💡</span> Moment Engine</div>
+<div class="nav-section">Operations</div>
+<div class="nav-item" onclick="navTo(this,'crew')"><span class="icon">🗓</span> Daily Briefing</div>
+<div class="nav-item" onclick="navTo(this,'crew')"><span class="icon">👥</span> Butler Assignments</div>
+<div class="nav-item" onclick="navTo(this,'crew')"><span class="icon">📝</span> Log Observation</div>
+<div class="nav-section">Insights</div>
+<div class="nav-item" onclick="navTo(this,'exec')"><span class="icon">📈</span> Analytics</div>
+<div class="nav-item" onclick="navTo(this,'exec')"><span class="icon">🏆</span> Top Moments</div>
+<div class="nav-item" onclick="navTo(this,'sources')"><span class="icon">⚙️</span> Settings</div>
+</nav>
+<div class="sidebar-footer">
+<div class="ship"><span class="dot"></span> Seven Seas Splendor · Live</div>
+<div class="user">Butler Reyes · Deck 10 · Regent Suite</div>
+<div style="margin-top:8px;padding-top:8px;border-top:1px solid rgba(255,255,255,.06)">
+<div style="font-size:9px;color:rgba(255,255,255,.25);letter-spacing:.06em;text-transform:uppercase">Powered by</div>
+<div style="font-size:11px;color:var(--gold);font-weight:600;margin-top:2px">Hawkes & Kwortnik Research</div>
+</div>
+</div>
+</aside>
+
+<div class="mobile-header" style="display:none;background:var(--sidebar-bg);padding:14px 16px;align-items:center;justify-content:space-between">
+<div style="color:#fff;font-size:16px;font-weight:700;display:flex;align-items:center;gap:8px"><span style="color:var(--gold);font-size:18px">🔆</span> Shorelight</div>
+<div class="live-badge" style="font-size:9px">LIVE</div>
+</div>
+
+<div class="main">
+<div class="topbar">
+<div class="topbar-left">
+<span class="breadcrumb">Guest Profiles › <strong>Jenn Teegen</strong></span>
+</div>
+<div class="topbar-right">
+<input class="search-box" placeholder="Search guests, suites, preferences..." />
+<div class="live-badge">LIVE</div>
+<button class="topbar-btn">🔔 5</button>
+<button class="topbar-btn">Export PDF</button>
+</div>
+</div>
+
+<div class="content">
+
+<div class="view-tabs">
+<div class="vtab active" onclick="sv('promise')">✦ The Promise</div>
+<div class="vtab" onclick="sv('crew')">🧑‍✈️ Crew View</div>
+<div class="vtab" onclick="sv('exec')">📊 Executive</div>
+<div class="vtab" onclick="sv('sources')">🔎 Sources</div>
+<div class="vtab" onclick="sv('chat')">💬 Talk to Twin</div>
+<div class="vtab" onclick="sv('roleplay')">🎭 Role Play</div>
+</div>
+
+<!-- ============ THE PROMISE (hero) ============ -->
+<div class="view active" id="v-promise">
+<div style="margin-bottom:14px">
+<div style="font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--gold)">The Living Promise</div>
+<div style="font-size:14px;color:var(--text);line-height:1.6;margin-top:6px;max-width:680px">Regent's promise to every guest, made visible — guest by guest, moment by moment. This is what Jenn Teegen responded to: not a dashboard, but the promise itself, tracked as it is kept or quietly broken across a single voyage. Everything else here is how it gets kept.</div>
+</div>
+<div style="border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);background:var(--regent-navy)">
+<iframe src="regent-promise-wheel.html" title="The Living Promise — Regent Seven Seas" loading="lazy" style="width:100%;height:84vh;min-height:620px;border:0;display:block"></iframe>
+</div>
+<div style="font-size:11.5px;color:var(--muted);margin-top:10px;text-align:center">Open the full-screen version → <a href="regent-promise-wheel.html" target="_blank" style="color:var(--brand);font-weight:600;text-decoration:none">The Living Promise ↗</a></div>
+</div>
+
+<!-- ============ CREW VIEW ============ -->
+<div class="view" id="v-crew">
+
+<!-- Guest Selector -->
+<div class="guest-selector">
+<span style="font-size:11px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;white-space:nowrap">Guest Profiles:</span>
+<button onclick="showGuest('teegen')" class="guest-sel active" id="gs-teegen" style="padding:6px 14px;border-radius:6px;font-size:12px;font-weight:500;cursor:pointer;border:1px solid var(--brand);background:var(--brand);color:#fff;transition:all .15s">Jenn Teegen</button>
+<button onclick="showGuest('wes')" class="guest-sel" id="gs-wes" style="padding:6px 14px;border-radius:6px;font-size:12px;font-weight:500;cursor:pointer;border:1px solid var(--border);background:var(--bg);color:var(--text);transition:all .15s">Wes D'Silva</button>
+<button onclick="showGuest('janice')" class="guest-sel" id="gs-janice" style="padding:6px 14px;border-radius:6px;font-size:12px;font-weight:500;cursor:pointer;border:1px solid var(--border);background:var(--bg);color:var(--text);transition:all .15s">Janice Davidson Pyfer</button>
+<span style="width:1px;height:20px;background:var(--border);margin:0 4px"></span>
+<span style="font-size:10px;font-weight:600;color:var(--gold);text-transform:uppercase;letter-spacing:.05em">Regent Guests:</span>
+<button onclick="showGuest('rector')" class="guest-sel" id="gs-rector" style="padding:6px 14px;border-radius:6px;font-size:12px;font-weight:500;cursor:pointer;border:1px solid var(--border);background:var(--bg);color:var(--text);transition:all .15s">Marcia Rector</button>
+<button onclick="showGuest('bittle')" class="guest-sel" id="gs-bittle" style="padding:6px 14px;border-radius:6px;font-size:12px;font-weight:500;cursor:pointer;border:1px solid var(--border);background:var(--bg);color:var(--text);transition:all .15s">Jim &amp; Pat Bittle</button>
+<button onclick="showGuest('stoddard')" class="guest-sel" id="gs-stoddard" style="padding:6px 14px;border-radius:6px;font-size:12px;font-weight:500;cursor:pointer;border:1px solid var(--border);background:var(--bg);color:var(--text);transition:all .15s">Jim &amp; Barbara Stoddard</button>
+<span style="width:1px;height:20px;background:var(--border);margin:0 4px"></span>
+<span style="font-size:10px;font-weight:600;color:var(--success);text-transform:uppercase;letter-spacing:.05em">Advocate:</span>
+<button onclick="showGuest('advocate')" class="guest-sel" id="gs-advocate" style="padding:6px 14px;border-radius:6px;font-size:12px;font-weight:500;cursor:pointer;border:1px solid rgba(22,163,106,.3);background:rgba(22,163,106,.06);color:var(--text);transition:all .15s">Marcia Rector</button>
+<span style="font-size:10px;font-weight:600;color:var(--danger);text-transform:uppercase;letter-spacing:.05em">Detractor:</span>
+<button onclick="showGuest('detractor')" class="guest-sel" id="gs-detractor" style="padding:6px 14px;border-radius:6px;font-size:12px;font-weight:500;cursor:pointer;border:1px solid rgba(220,38,38,.3);background:rgba(220,38,38,.06);color:var(--text);transition:all .15s">Chris Riedel</button>
+</div>
+
+<!-- ===== JENN TEEGEN GUEST PROFILE ===== -->
+<div id="guest-teegen">
+<div class="guest-card">
+<div class="avatar" style="background:linear-gradient(135deg,var(--gold),#8a6520)">JT</div>
+<div class="guest-meta">
+<h2>Jenn Teegen</h2>
+<div class="subtitle">Illustrative profile · Guest-experience &amp; loyalty leader · Fort Lauderdale, FL</div>
+<div class="tags">
+<span class="tag pref">🤝 Internal Champion</span>
+<span class="tag">🍷 Wine &amp; Culinary</span>
+<span class="tag">🎨 Art &amp; Design</span>
+<span class="tag pref">👥 Connector</span>
+<span class="tag">EQ-Driven Leader</span>
+</div>
+</div>
+<div class="confidence-pill">
+<div class="score">94</div>
+<div class="label">Read Fidelity</div>
+</div>
+</div>
+
+<div class="insight-row blue" style="margin-bottom:16px"><span class="insight-icon">ℹ️</span><div><strong>How to read this profile:</strong> This is an <em>illustrative</em> Shorelight read — how the product would understand a guest like Jenn from her public and professional persona, not a record of any actual voyage, suite, or spend. The point is the <strong>perspective</strong>: what matters to this person, ranked, and where the source comes from. It's the defensible view a champion can carry upward.</div></div>
+
+<div class="grid">
+<div class="card grid-full">
+<div class="card-header"><div class="card-title">👤 Guest Intelligence — Jenn Teegen</div><span class="card-badge badge-ai">Shorelight AI</span></div>
+<div class="card-body">
+<p><strong>What we know (sourced):</strong> Senior guest-experience / loyalty leader at Regent · reports to the Chief Brand Officer · low public profile by choice — an operator, not a self-promoter. <span style="color:var(--muted)">(Source: RSSC org structure; Cruise Critic forum signal, Oct 2022.)</span></p>
+<p><strong>Who she is:</strong> A consensus-builder who works the seam between brand promise and guest reality. The telling signal is public: a Regent guest once turned to a Cruise Critic forum asking for <em>Jenn by name</em> to resolve a Seven Seas Society matter — and other guests stepped in to help. In ultra-luxury, there is no higher compliment than guests knowing your name. She translates between what the guest feels and what the executive needs to hear.</p>
+<div class="insight-row green"><span class="insight-icon">💡</span><div><strong>Decision psychology:</strong> Jenn recommends; the CBO approves. She won't carry anything upward she can't <strong>defend</strong>. So her read is built for defensibility — every claim sourced, every recommendation ranked, nothing she'd have to walk back in a room with her bosses. Give her ammunition, not adjectives.</div></div>
+</div>
+</div>
+
+<div class="card">
+<div class="card-header"><div class="card-title">🍷 Preferences & Patterns</div></div>
+<div class="card-body">
+<p><strong>Dining:</strong> Compass Rose preferred. Enjoys wine pairings — gravitates toward Italian reds (Barolo, Brunello). Appreciates when the sommelier remembers previous selections. Values culinary storytelling over elaborate presentation.</p>
+<p><strong>Shore excursions:</strong> Prefers culturally immersive experiences over standard tours. Local food markets, artisan studios, architecture walks. Will skip a group excursion for a solo discovery walk.</p>
+<p><strong>Onboard rhythm:</strong> Early riser. Pool deck by 7 AM. Reads industry publications over coffee. Social in evenings — connects guests who share interests. The Social Host gravitates toward her because she naturally brings people together.</p>
+<p><strong>What makes her light up:</strong> Crew members who show genuine emotional intelligence. A butler who anticipates without being asked. A sommelier who remembers a previous selection. The small, unscripted signals that say "we see you" — the very moments she's spent her career trying to make repeatable.</p>
+<div class="insight-row blue"><span class="insight-icon">ℹ️</span><div><strong>Butler note:</strong> Jenn reads service the way only a hospitality professional can. She isn't measuring perfection — she's listening for what's real. A genuine "welcome back" will stay with her longer than the most polished amenity presentation. Keep it natural; never script her.</div></div>
+</div>
+</div>
+
+<div class="card">
+<div class="card-header"><div class="card-title">🗣 Butler Conversation Prompts</div></div>
+<div class="card-body">
+<div class="crew-prompt" style="margin-bottom:14px">
+<div class="timing">Embarkation Day</div>
+<div class="script">"Welcome back, Jenn. Your usual Pellegrino is chilled, and the sommelier set aside a 2019 Barolo he thought you'd enjoy — it's from a small producer in La Morra you haven't tried yet. Compass Rose at 7:30?"</div>
+</div>
+<div class="crew-prompt" style="margin-bottom:14px">
+<div class="timing">Day 3 — Port Day (Barcelona)</div>
+<div class="script">"There's a ceramicist in El Born whose studio just opened to visitors this season — she trained under the same teacher as the potter you admired in Positano last voyage. I have the address if you'd like to walk over after the market."</div>
+</div>
+<div class="crew-prompt" style="margin-bottom:14px">
+<div class="timing">Day 5 — Sea Day</div>
+<div class="script">"I noticed you and the Hendersons from Houston really hit it off at dinner last night. They mentioned they're interested in the wine tasting tomorrow — shall I reserve adjacent seats?"</div>
+</div>
+<div class="crew-prompt">
+<div class="timing">Disembarkation Eve</div>
+<div class="script">"Jenn, the team put together a small portfolio of the best photos from your shore excursions this voyage — the ceramicist studio shot came out beautifully. It's in your suite whenever you'd like to look through it."</div>
+</div>
+</div>
+</div>
+
+<div class="card">
+<div class="card-header"><div class="card-title">💎 Surprise Opportunities</div></div>
+<div class="card-body">
+<div class="insight-row green"><span class="insight-icon">💡</span><div><strong>High-impact, low-cost:</strong> Jenn collects artisan pottery from ports she visits. A small, wrapped piece from a local craftsperson left in her suite with a handwritten note from the butler: "Saw this and thought of your collection." Cost: a few dollars of port petty-cash. Impact: she'll tell the story for years.</div></div>
+<div class="insight-row green"><span class="insight-icon">💡</span><div><strong>Emotional anchor:</strong> On her 10th voyage milestone, a handwritten card from the Captain acknowledging her as "one of the people who makes Regent what it is" — not as an employee, but as a guest whose presence elevates the community. Cost: $0. Impact: lifetime loyalty.</div></div>
+</div>
+</div>
+
+<div class="card grid-full" style="border-top:3px solid var(--brand)">
+<div class="card-header"><div class="card-title">💡 Moment Engine — The Ranking Wedge</div><span class="card-badge badge-ai">37 actions considered → top 3</span></div>
+<div class="card-body">
+<p style="font-size:12px;color:var(--muted);margin-bottom:14px">Salesforce plus AI can <em>assemble</em> guest data. Anyone can. What we offer is <strong>perspective</strong>: of everything you could do for this guest, the few moments with the highest expected value against her equity. Ranked, with the why, the lever each moves, our confidence, and the source. This is the screen that isn't just data.</p>
+
+<div class="moment">
+<div class="moment-rank">1</div>
+<div class="moment-body">
+<div class="moment-title">Sommelier carries her selection across venues &amp; voyages</div>
+<div class="moment-why">Recognition without fuss is the single signal she's said matters most. A sommelier who opens with a previous selection — not a re-ask — tells her the system remembers. Highest-EV because it's repeatable, near-zero cost, and lands on her core value.</div>
+<div class="moment-tags"><span class="lever lever-repeat">Lever: Repeat</span><span class="lever lever-adv">Advocacy</span><span class="conf">Confidence: High</span><span class="src">Source: guest-experience persona (observed pattern)</span></div>
+</div>
+</div>
+
+<div class="moment">
+<div class="moment-rank">2</div>
+<div class="moment-body">
+<div class="moment-title">Curate a solo-discovery port walk over the group excursion</div>
+<div class="moment-why">She'll skip a bus tour for an artisan studio the group drives past. A pre-vetted walking route to a craftsperson aligned to her interests turns a port day into a story she tells. Strong-EV: differentiated, low cost, and it feeds her advocacy.</div>
+<div class="moment-tags"><span class="lever lever-adv">Lever: Advocacy</span><span class="lever lever-infl">Influence</span><span class="conf">Confidence: Medium-High</span><span class="src">Source: stated preference for cultural immersion</span></div>
+</div>
+</div>
+
+<div class="moment">
+<div class="moment-rank">3</div>
+<div class="moment-body">
+<div class="moment-title">Seat her near guests she'll naturally connect</div>
+<div class="moment-why">She's a connector — she brings people together at dinner. Quietly seating her near compatible guests amplifies the whole table's experience and her sense of belonging. Good-EV but lower-confidence: depends on who else is aboard.</div>
+<div class="moment-tags"><span class="lever lever-infl">Lever: Influence</span><span class="lever lever-repeat">Repeat</span><span class="conf">Confidence: Medium</span><span class="src">Source: connector behavior (persona inference)</span></div>
+</div>
+</div>
+
+<p style="font-size:11px;color:var(--muted);margin-top:6px;margin-bottom:0"><em>Not shown:</em> 34 lower-ranked actions (generic amenity drop, standard turndown gift, scripted welcome) — assembled but deliberately suppressed. The discipline of <strong>what we don't surface</strong> is the product.</p>
+</div>
+</div>
+</div>
+</div>
+
+<!-- ===== WES D'SILVA GUEST PROFILE ===== -->
+<div id="guest-wes" style="display:none">
+<div class="guest-card">
+<div class="avatar" style="background:linear-gradient(135deg,var(--regent-navy),#1a3a6c);overflow:hidden;padding:0"><img src="https://cruiseindustrynews.com/wp-content/uploads/2026/03/Wesley-DSilva.jpg" alt="Wesley D'Silva" style="width:100%;height:100%;object-fit:cover;border-radius:50%"></div>
+<div class="guest-meta">
+<h2>Wesley D'Silva</h2>
+<div class="subtitle">Illustrative profile · President, Regent Seven Seas · Miami, FL</div>
+<div class="tags">
+<span class="tag pref">📊 Data-First</span>
+<span class="tag">🎓 Summa cum Laude, Finance</span>
+<span class="tag">↗ Ex-Revenue Management</span>
+<span class="tag pref">🆕 New in Role (Mar 2026)</span>
+</div>
+</div>
+<div class="confidence-pill">
+<div class="score">96</div>
+<div class="label">Read Fidelity</div>
+</div>
+</div>
+
+<div class="insight-row blue" style="margin-bottom:16px"><span class="insight-icon">ℹ️</span><div><strong>How to read this profile:</strong> Illustrative — how Shorelight would read a guest like Wes from his public, professional persona, not a record of any actual voyage or spend. It's tuned to his decision psychology: a finance-trained operator who wants <strong>ranked, sourced, defensible</strong> intelligence. No invented dollars anywhere on this screen — every figure on the platform is either observed, sourced, or labeled as a qualitative lever.</div></div>
+
+<div class="grid">
+<div class="card grid-full">
+<div class="card-header"><div class="card-title">👤 Guest Intelligence — Wes D'Silva</div><span class="card-badge badge-ai">Shorelight AI</span></div>
+<div class="card-body">
+<p><strong>What we know (sourced):</strong> President of Regent since Mar 2 2026 · former Chief Commercial Officer and SVP Revenue Management · B.S. Finance, University of Miami, summa cum laude · 15+ years inside NCLH/Prestige. <span style="color:var(--muted)">(Source: Cruise Industry News; Travel Weekly; RSSC leadership page.)</span></p>
+<p><strong>Who he is:</strong> An analytical operator promoted to a visionary seat. He built Regent's yield-optimization discipline; he processes the world through numbers first, narrative second. New in the role and deliberately conservative — six weeks in, he's not making bold vendor bets, he's looking for low-risk pilots with measurable outcomes.</p>
+<div class="insight-row green"><span class="insight-icon">💡</span><div><strong>Decision psychology:</strong> His own rule of thumb — <em>"if you can show a number, show a number."</em> So Shorelight shows him exactly that: where a real number exists, it's cited with its source; where one doesn't, it's named as a qualitative equity lever rather than fabricated. The honesty <em>is</em> the pitch. A revenue-management exec spots an invented number instantly — and trusts the model that refuses to invent one.</div></div>
+</div>
+</div>
+
+<div class="card">
+<div class="card-header"><div class="card-title">🎯 Preferences & Patterns</div></div>
+<div class="card-body">
+<p><strong>Dining:</strong> Pacific Rim preferred over Compass Rose. Enjoys trying new dishes — not a creature of habit with food. Rarely orders wine by the bottle; prefers the sommelier's single-glass recommendation. Values efficiency in service over ceremony.</p>
+<p><strong>Shore excursions:</strong> Hiking and active exploration. Recently increased outdoor activity. Prefers self-guided or small-group options over large bus tours. Will skip an excursion entirely if it feels mass-market.</p>
+<p><strong>Onboard rhythm:</strong> Early riser (5:30-6 AM). Fitness center first, then coffee with a spreadsheet. Works from the suite until mid-morning. Prefers the Observation Lounge in the afternoon — quiet corner, facing forward. Evening is social but not late.</p>
+<p><strong>What matters to him:</strong> Precision. He notices when the espresso arrives at exactly the right temperature. He notices when the butler remembered his preference without being told. He notices when something is inefficient. He doesn't complain about it — he files it mentally.</p>
+<div class="insight-row blue"><span class="insight-icon">ℹ️</span><div><strong>Butler note:</strong> Don't over-talk with Wes. He values crew who read the room and act without narrating. The perfect butler interaction: need anticipated, solution delivered, zero small talk. A quiet nod of acknowledgment is his version of a five-star review.</div></div>
+</div>
+</div>
+
+<div class="card">
+<div class="card-header"><div class="card-title">🗣 Butler Conversation Prompts</div></div>
+<div class="card-body">
+<div class="crew-prompt" style="margin-bottom:14px">
+<div class="timing">Embarkation Day</div>
+<div class="script">"Mr. D'Silva, welcome back. Your espresso setup is ready — the Lavazza Qualità Oro from last time. Fitness center opens at 5:30 and I've confirmed your preferred treadmill spot. Anything else before you settle in?"</div>
+</div>
+<div class="crew-prompt" style="margin-bottom:14px">
+<div class="timing">Day 3 — Port Day</div>
+<div class="script">"There's a coastal trail outside town that's 6 miles round trip with elevation — better terrain than the excursion options. I have the trailhead GPS and a packed water bottle if you'd prefer to go independent."</div>
+</div>
+<div class="crew-prompt">
+<div class="timing">Sea Day — Afternoon</div>
+<div class="script">[No script needed. Espresso appears at the Observation Lounge corner at 2:15 PM. No words exchanged. He nods. That's the moment.]</div>
+</div>
+</div>
+</div>
+
+<div class="card">
+<div class="card-header"><div class="card-title">🧮 Methodology — Why This Read Is Defensible</div><span class="card-badge badge-ai">For the analyst in the room</span></div>
+<div class="card-body">
+<p style="font-size:12px;color:var(--muted);margin-bottom:12px">Anyone can scrape guest data — Salesforce plus AI can assemble it. The wedge isn't the data; it's the <strong>perspective</strong>: of everything you could do for a guest, which few moments carry the highest expected value against that guest's equity. Here's how every line on this platform is graded.</p>
+<div class="insight-row blue" style="margin-bottom:8px"><span class="insight-icon">①</span><div><strong>Sourced or labeled:</strong> Each fact is tagged <em>observed</em> (logged aboard), <em>sourced</em> (public/verified, with citation), or <em>inferred</em> (with confidence). Nothing presents as fact that isn't one.</div></div>
+<div class="insight-row blue" style="margin-bottom:8px"><span class="insight-icon">②</span><div><strong>Ranked by expected value:</strong> Recommendations are scored against the four equity levers — Spend, Repeat, Advocacy, Influence — and only the top few surface. The system shows the count it considered, so the ranking is auditable.</div></div>
+<div class="insight-row blue" style="margin-bottom:8px"><span class="insight-icon">③</span><div><strong>No fabricated dollars:</strong> Where a real figure exists it's cited; where it doesn't, the lever is stated qualitatively (high / outsized / at-risk). The platform will never hand you a number it can't defend.</div></div>
+<div class="insight-row green"><span class="insight-icon">④</span><div><strong>Built for a low-risk pilot:</strong> One ship, fixed window, measurable before/after on rebooking and recognition — the kind of contained, measurable test a new-in-role president can stand behind.</div></div>
+</div>
+</div>
+</div>
+</div>
+
+<!-- ===== JANICE DAVIDSON PYFER GUEST PROFILE ===== -->
+<div id="guest-janice" style="display:none">
+<div class="guest-card">
+<div class="avatar" style="background:linear-gradient(135deg,#8B4513,#D4A574);overflow:hidden;padding:0"><img src="https://brand-innovators.com/wp-content/uploads/2025/04/Janice_Regent-Seven-Seas-228x300.jpg" alt="Janice Davidson Pyfer" style="width:100%;height:100%;object-fit:cover;border-radius:50%"></div>
+<div class="guest-meta">
+<h2>Janice Davidson Pyfer</h2>
+<div class="subtitle" style="font-style:italic;letter-spacing:.01em">Illustrative profile · Chief Brand Officer, Regent &amp; Oceania · South Florida</div>
+<div class="tags">
+<span class="tag pref">🎨 Trained Designer (BFA)</span>
+<span class="tag">🏛 Brand Guardian</span>
+<span class="tag pref">📖 Oversees Explore Magazine</span>
+<span class="tag">✒️ 15+ Years at Regent</span>
+</div>
+</div>
+<div class="confidence-pill">
+<div class="score" style="color:var(--gold)">97</div>
+<div class="label">Read Fidelity</div>
+</div>
+</div>
+
+<div class="insight-row" style="margin-bottom:16px;background:linear-gradient(180deg,rgba(196,162,101,.08),rgba(196,162,101,.03));border:1px solid rgba(196,162,101,.25);border-left:3px solid var(--gold)"><span class="insight-icon">✦</span><div><strong style="color:#7a5c1e">How to read this profile.</strong> &nbsp;Illustrative, by design — how Shorelight reads a guest like Janice from her public, professional persona, not a record of any actual voyage or suite. It's tuned to a trained designer's eye: the question isn't "what did she spend," it's "did every touchpoint hold the brand promise — and would it earn a place in <em>Explore</em>." The product is invisible infrastructure; what the guest feels is craft.</div></div>
+
+<div class="grid">
+<div class="card grid-full">
+<div class="card-header"><div class="card-title">👤 Guest Intelligence — Janice Davidson Pyfer</div><span class="card-badge badge-ai">Shorelight AI</span></div>
+<div class="card-body">
+<p><strong>What we know (sourced):</strong> Chief Brand Officer for Regent &amp; Oceania · B.F.A. Graphic Design, SUNY Fredonia · ran her own design firm and creative consultancy before going in-house · at Regent since 2010, through three presidents · oversees <em>Explore</em>, the brand's editorial voice. <span style="color:var(--muted)">(Source: LinkedIn; RSSC about page; Brand Innovators; RSSC blog.)</span></p>
+<p><strong>Who she is:</strong> A creative brand guardian with institutional power — "blending strategy with style," in her own words. A trained designer who moved into strategy, she wrote personally about how working on <em>Explore</em> made her dream about travel again. She doesn't just manage the brand; she <em>feels</em> it. And she's rightly skeptical of anything that makes luxury feel algorithmic.</p>
+<div class="insight-row green"><span class="insight-icon">💡</span><div><strong>Decision psychology:</strong> She evaluates everything through one question — <em>does this enhance or dilute the Regent experience?</em> The weight of the stationery, the typography on the menu, the white space around an amenity — she reads these as brand signals before she reads them as service. So Shorelight earns her trust by disappearing: the guest never sees software, only continuity and craft. Show, don't tell. If it would look at home in <em>Explore</em>, it belongs.</div></div>
+</div>
+</div>
+
+<div class="card">
+<div class="card-header"><div class="card-title">🎨 Preferences & Patterns</div></div>
+<div class="card-body">
+<p><strong>Dining:</strong> Compass Rose loyalist. Prefers the window table. Studies the menu design as much as the food. Will comment on a beautiful plate presentation to the chef. Appreciates when the sommelier tells the story of the vineyard, not just the grape.</p>
+<p><strong>Aesthetics:</strong> Notices every visual detail. The arrangement of welcome amenities. The quality of print materials. Whether the digital signage matches the brand palette. Her BFA training means she processes environments differently than most guests.</p>
+<p><strong>Shore excursions:</strong> Art galleries, architecture, design studios. Mediterranean and Northern Europe are her preferred regions. She's the guest who finds the small ceramics studio the tour bus drives past.</p>
+<p><strong>What makes her light up:</strong> When something on board feels intentionally designed — not just functional, but beautiful. A thoughtfully arranged suite. A hand-lettered card. She recognizes craft because she practices it.</p>
+<div class="insight-row blue"><span class="insight-icon">ℹ️</span><div><strong>Butler note:</strong> Janice's aesthetic bar is professional-grade. The suite arrangement matters. Asymmetrical flower arrangements (not hotel-standard symmetric). Quality over quantity in welcome amenities. She'd rather have one beautiful object than five generic ones. If something in the suite is visually wrong — a clashing color, cheap printing — she'll see it instantly.</div></div>
+</div>
+</div>
+
+<div class="card">
+<div class="card-header"><div class="card-title">🗣 Butler Conversation Prompts</div></div>
+<div class="card-body">
+<div class="crew-prompt" style="margin-bottom:14px">
+<div class="timing">Embarkation Day</div>
+<div class="script">"Ms. Davidson Pyfer, welcome back to Voyager. I've arranged the suite with the orchid arrangement you mentioned last voyage — the single-stem Phalaenopsis from the ship's garden. The Diptyque is set. I also have the name of the new gallery in Nice that opened this spring if you're interested."</div>
+</div>
+<div class="crew-prompt" style="margin-bottom:14px">
+<div class="timing">Day 4 — Barcelona</div>
+<div class="script">"There's an exhibition at the Fundació Miró that just opened — it's a retrospective of his textile work, which I thought might connect to your design background. The museum is quietest before 10 AM. Shall I arrange a car for 9?"</div>
+</div>
+<div class="crew-prompt">
+<div class="timing">Sea Day — Observation Lounge</div>
+<div class="script">"I found something I thought you'd appreciate — it's a small book of Scandinavian textile patterns from the ship's library. The designer referenced some of the same color theory you mentioned at dinner."</div>
+</div>
+</div>
+</div>
+
+<div class="card" style="border-top:3px solid var(--gold)">
+<div class="card-header"><div class="card-title">✦ Brand-Promise Integrity — Her Lens</div><span class="card-badge" style="background:rgba(196,162,101,.12);color:#7a5c1e">Per voyage</span></div>
+<div class="card-body">
+<p style="font-size:12px;color:var(--muted);margin-bottom:12px">For a brand guardian, the only metric that matters is whether the promise held. Shorelight surfaces each pillar of Regent's all-inclusive promise as a "did we deliver it?" read — the same question Janice asks Monday morning, answered before disembarkation.</p>
+<div style="display:flex;align-items:center;gap:10px;margin-bottom:8px"><span style="font-size:12px;width:165px;font-weight:600">Wallet stays aboard</span><div style="flex:1;height:6px;background:#eee;border-radius:3px;overflow:hidden"><div style="width:97%;height:100%;background:var(--gold);border-radius:3px"></div></div><span style="font-size:11px;color:var(--success);font-weight:600">Holding</span></div>
+<div style="display:flex;align-items:center;gap:10px;margin-bottom:8px"><span style="font-size:12px;width:165px;font-weight:600">Recognition &amp; belonging</span><div style="flex:1;height:6px;background:#eee;border-radius:3px;overflow:hidden"><div style="width:92%;height:100%;background:var(--gold);border-radius:3px"></div></div><span style="font-size:11px;color:var(--success);font-weight:600">Holding</span></div>
+<div style="display:flex;align-items:center;gap:10px;margin-bottom:12px"><span style="font-size:12px;width:165px;font-weight:600">Cross-fleet consistency</span><div style="flex:1;height:6px;background:#eee;border-radius:3px;overflow:hidden"><div style="width:78%;height:100%;background:var(--warning);border-radius:3px"></div></div><span style="font-size:11px;color:#92700c;font-weight:600">Watch</span></div>
+<div class="insight-row green" style="margin-bottom:8px"><span class="insight-icon">✦</span><div><strong>Aesthetic continuity is the differentiator.</strong> Anyone can serve a guest well once. Holding the same standard of craft — the same suite styling, the same editorial tone, the same recognition — across six ships and a butler rotation is the hard part. That continuity is exactly what Shorelight protects, and exactly what a designer notices when it slips.</div></div>
+<div class="insight-row" style="background:linear-gradient(180deg,rgba(196,162,101,.07),rgba(196,162,101,.02));border:1px solid rgba(196,162,101,.2)"><span class="insight-icon">💡</span><div><strong>A moment in her register:</strong> On a milestone voyage, present a quietly bound portfolio of Regent's visual evolution across her years — the campaigns and <em>Explore</em> covers she shaped. "This is what you built." Cost: a printing run. Impact: she'll never forget it.</div></div>
+</div>
+</div>
+</div>
+</div>
+
+<!-- ===== MARCIA RECTOR GUEST PROFILE ===== -->
+<div id="guest-rector" style="display:none">
+<div class="guest-card">
+<div class="avatar" style="background:linear-gradient(135deg,#8B6914,#C4A265)">MR</div>
+<div class="guest-meta">
+<h2>Marcia Rector</h2>
+<div class="subtitle">Seven Seas Society · Solo Traveler · Commodore · Preferred Ship: Splendor</div>
+<div class="tags">
+<span class="tag vip">⭐ Commodore</span>
+<span class="tag pref">🎭 Theater & Arts</span>
+<span class="tag">📖 Avid Reader</span>
+<span class="tag pref">🍷 Wine Enthusiast</span>
+<span class="tag">Solo Explorer</span>
+</div>
+</div>
+<div class="confidence-pill">
+<div class="score">88</div>
+<div class="label">Profile Score</div>
+</div>
+</div>
+
+<div class="grid">
+<div class="card grid-full">
+<div class="card-header"><div class="card-title">👤 Guest Intelligence — Marcia Rector</div><span class="card-badge badge-ai">Shorelight AI</span></div>
+<div class="card-body">
+<p><strong>Guest since:</strong> 2021 · <strong>Voyages:</strong> 5 · <strong>Preferred ship:</strong> Splendor · <strong>Travel style:</strong> Solo</p>
+<p><strong>Who she is:</strong> Marcia is a confident solo traveler who chose Regent specifically because the all-inclusive model removes the friction that solo travelers often face on other lines. She doesn't need a travel companion to feel comfortable — she needs a crew that sees her as a complete guest, not half a couple. She's well-read, culturally curious, and quietly observant.</p>
+<div class="insight-row green"><span class="insight-icon">💡</span><div><strong>Key insight:</strong> Marcia is the kind of solo guest who elevates a table. She draws out quieter guests, asks the sommelier real questions, and remembers crew members' names from previous voyages. She doesn't want special "solo" treatment — she wants to be treated like every other valued guest, without the awkwardness of empty chairs or "will anyone be joining you?"</div></div>
+</div>
+</div>
+
+<div class="card">
+<div class="card-header"><div class="card-title">🍷 Preferences & Patterns</div></div>
+<div class="card-body">
+<p><strong>Dining:</strong> Rotates between all restaurants. Prefers bar seating at Prime 7 — she likes watching the kitchen. At Compass Rose, she'll accept shared table placement gladly if the tablemates are interesting. Does not want a table for one in the corner.</p>
+<p><strong>Shore excursions:</strong> Small-group cultural tours. Museums, local food markets, walking tours with a knowledgeable guide. Will skip beach days entirely. Has been known to find a local bookshop in every port and come back with a bag of novels.</p>
+<p><strong>Onboard rhythm:</strong> Morning reader — pool deck with coffee and a book by 8 AM. Attends every enrichment lecture. Evening theater-goer. Visits the Observation Lounge after shows for a nightcap. This is when she's most social.</p>
+<p><strong>What makes her light up:</strong> When a crew member remembers something specific from a previous voyage. A bartender who says "Your usual Sancerre?" or a waiter who asks about the book she was reading last time. Recognition without fuss.</p>
+<div class="insight-row blue"><span class="insight-icon">ℹ️</span><div><strong>Butler note:</strong> Never frame anything as a "solo" accommodation. Don't say "since you're traveling alone" — she isn't alone, she chose this. Stock her suite with fresh flowers (she notices), the latest New Yorker, and a good reading lamp. She'll judge the suite by its lighting more than its view.</div></div>
+</div>
+</div>
+
+<div class="card">
+<div class="card-header"><div class="card-title">🗣 Butler Conversation Prompts</div></div>
+<div class="card-body">
+<div class="crew-prompt" style="margin-bottom:14px">
+<div class="timing">Embarkation Day</div>
+<div class="script">"Welcome back, Ms. Rector. Your Sancerre is chilled and I've set up the reading corner with the adjustable lamp you liked last time. The enrichment lecturer this voyage is a marine archaeologist — I thought that might be right up your alley. First talk is tomorrow at 10."</div>
+</div>
+<div class="crew-prompt" style="margin-bottom:14px">
+<div class="timing">Day 2 — First Port</div>
+<div class="script">"There's a small antiquarian bookshop two blocks from the main square that just acquired a collection of Mediterranean travel writing. The owner speaks English and loves showing visitors around. I have the address and it opens at 9."</div>
+</div>
+<div class="crew-prompt">
+<div class="timing">Day 5 — Sea Day Evening</div>
+<div class="script">"Ms. Rector, there's a couple at Table 7 in Compass Rose tonight — she's a retired professor of Italian literature, he's a documentary filmmaker. I thought you might enjoy their company. Shall I arrange the seating?"</div>
+</div>
+</div>
+</div>
+
+<div class="card">
+<div class="card-header"><div class="card-title">💎 Surprise Opportunities</div></div>
+<div class="card-body">
+<div class="insight-row green"><span class="insight-icon">💡</span><div><strong>High-impact:</strong> On her next voyage milestone, leave a beautifully bound reading journal in her suite with a handwritten note: "For the ports ahead — and the stories you'll find in them." Cost: a bound journal. She'll use it every voyage after.</div></div>
+<div class="insight-row green"><span class="insight-icon">💡</span><div><strong>Connection moment:</strong> Introduce her to another solo traveler with similar interests on embarkation day — not as a matchmaking exercise, but casually: "I think you two might have a lot to talk about." Solo guests who find a voyage companion organically rebook at 2x the rate.</div></div>
+</div>
+</div>
+</div>
+</div>
+
+<!-- ===== JIM & PAT BITTLE GUEST PROFILE ===== -->
+<div id="guest-bittle" style="display:none">
+<div class="guest-card">
+<div class="avatar" style="background:linear-gradient(135deg,#2E5A3C,#4A8C6A)">B</div>
+<div class="guest-meta">
+<h2>Jim & Pat Bittle</h2>
+<div class="subtitle">Seven Seas Society · 10+ Voyages · Penthouse Suite · Active Lifestyle Travelers</div>
+<div class="tags">
+<span class="tag vip">⭐ Platinum</span>
+<span class="tag pref">⛳ Golf & Active</span>
+<span class="tag pref">🍷 Fine Dining</span>
+<span class="tag">🌊 Mediterranean Regulars</span>
+<span class="tag">Social Connectors</span>
+</div>
+</div>
+<div class="confidence-pill">
+<div class="score">92</div>
+<div class="label">Profile Score</div>
+</div>
+</div>
+
+<div class="grid">
+<div class="card grid-full">
+<div class="card-header"><div class="card-title">👤 Guest Intelligence — Jim & Pat Bittle</div><span class="card-badge badge-ai">Shorelight AI</span></div>
+<div class="card-body">
+<p><strong>Guests since:</strong> 2017 · <strong>Voyages:</strong> 10+ · <strong>Preferred ship:</strong> Explorer · <strong>Suite preference:</strong> Penthouse, mid-ship</p>
+<p><strong>Who they are:</strong> Jim and Pat are the couple other guests gravitate toward at cocktail hour. Jim has a warm, easy humor and a genuine curiosity about people's stories. Pat is the planner — she researches ports months in advance, builds their own excursion itineraries, and knows the ship's daily schedule better than most crew. Together, they set the social tone of whatever deck they're on.</p>
+<div class="insight-row green"><span class="insight-icon">💡</span><div><strong>Key insight:</strong> The Bittles are natural community builders. On their last three voyages, they've organized informal pre-dinner gatherings on the pool deck that grew from 4 guests to 20+. This kind of organic social energy is exactly what makes a voyage feel alive — and it costs Regent nothing. They should be recognized and subtly supported.</div></div>
+</div>
+</div>
+
+<div class="card">
+<div class="card-header"><div class="card-title">🎯 Preferences & Patterns</div></div>
+<div class="card-body">
+<p><strong>Dining:</strong> Compass Rose loyalists — same table every night (window, port side). Jim orders the tasting menu when available. Pat prefers lighter fare but will try anything the chef recommends personally. They host other couples at their table regularly.</p>
+<p><strong>Shore excursions:</strong> Active and self-guided. Golf when available. Pat pre-researches walking routes with historical significance. They avoid large group tours. Jim will find the best local café within 30 minutes of docking — it's a personal mission.</p>
+<p><strong>Onboard rhythm:</strong> Jim: fitness center by 7 AM, then pool deck with coffee. Pat: spa in the morning, then the library. They converge at lunch and are inseparable from 4 PM onward. Evening cocktails are their social hour.</p>
+<p><strong>What matters to them:</strong> Consistency across voyages. They notice when their preferred table isn't held. They notice when the bartender doesn't remember Jim's gin & tonic (Hendrick's, cucumber, no lime). They're forgiving of honest mistakes but intolerant of systems that don't learn.</p>
+<div class="insight-row blue"><span class="insight-icon">ℹ️</span><div><strong>Butler note:</strong> Jim and Pat are low-maintenance in the suite but high-expectation on recognition. The butler relationship matters — they want someone who checks in once, reads the room, and then operates quietly. Over-attentiveness annoys Jim. Under-attentiveness frustrates Pat. The sweet spot: present when needed, invisible otherwise.</div></div>
+</div>
+</div>
+
+<div class="card">
+<div class="card-header"><div class="card-title">🗣 Butler Conversation Prompts</div></div>
+<div class="card-body">
+<div class="crew-prompt" style="margin-bottom:14px">
+<div class="timing">Embarkation Day</div>
+<div class="script">"Mr. and Mrs. Bittle, welcome back. Your table at Compass Rose is confirmed for 7:30 — port-side window as always. Jim, the Hendrick's is stocked with fresh cucumber. Pat, the spa has your preferred 10 AM slot held for the first sea day. Anything else before you settle in?"</div>
+</div>
+<div class="crew-prompt" style="margin-bottom:14px">
+<div class="timing">Day 3 — Port Day</div>
+<div class="script">"Pat, I found a walking route from the pier to a 14th-century chapel that passes through the old Jewish quarter — about 2 miles with good shade. And Jim, there's a small golf course 20 minutes from port if you want a quick 9 before lunch. I can arrange a car."</div>
+</div>
+<div class="crew-prompt">
+<div class="timing">Day 6 — Sea Day</div>
+<div class="script">[The Bittles are hosting their informal cocktail gathering. Butler ensures the pool deck bar is stocked with their preferred wines and has extra appetizer platters ready — without being asked. A quiet word to the bar manager is all it takes.]</div>
+</div>
+</div>
+</div>
+
+<div class="card">
+<div class="card-header"><div class="card-title">💎 Surprise Opportunities</div></div>
+<div class="card-body">
+<div class="insight-row green"><span class="insight-icon">💡</span><div><strong>Community recognition:</strong> On their 15th voyage, the Captain mentions at the welcome dinner: "We have guests aboard who've sailed with us so many times they've become part of the Regent family. Jim and Pat, we're glad you're home." Not a formal award — just genuine recognition in front of their community. Cost: $0. They'll book the next three voyages that week.</div></div>
+</div>
+</div>
+</div>
+</div>
+
+<!-- ===== JIM & BARBARA STODDARD GUEST PROFILE ===== -->
+<div id="guest-stoddard" style="display:none">
+<div class="guest-card">
+<div class="avatar" style="background:linear-gradient(135deg,#1B5E7A,#3498DB)">S</div>
+<div class="guest-meta">
+<h2>Jim & Barbara Stoddard</h2>
+<div class="subtitle">Seven Seas Society · 15+ Voyages · Master Suite · Community Pillars</div>
+<div class="tags">
+<span class="tag vip">⭐ Titanium</span>
+<span class="tag pref">🌺 Aloha Spirit</span>
+<span class="tag pref">📸 Social Media Active</span>
+<span class="tag">👥 Regent Community Leaders</span>
+<span class="tag">166+ Social Engagement</span>
+</div>
+</div>
+<div class="confidence-pill">
+<div class="score">96</div>
+<div class="label">Profile Score</div>
+</div>
+</div>
+
+<div class="grid">
+<div class="card grid-full">
+<div class="card-header"><div class="card-title">👤 Guest Intelligence — Jim & Barbara Stoddard</div><span class="card-badge badge-ai">Shorelight AI</span></div>
+<div class="card-body">
+<p><strong>Guests since:</strong> 2012 · <strong>Voyages:</strong> 15+ · <strong>Preferred ships:</strong> Splendor, Explorer · <strong>Suite preference:</strong> Master Suite</p>
+<p><strong>Who they are:</strong> Jim and Barbara (née Hughey) are Regent royalty. They're the couple who post "Off we go!" on Facebook before every voyage and get 166 likes because their friends live vicariously through their travels. Jim's signature Hawaiian shirts are recognizable across the pool deck. Barbara is the warm center of every social group they join — she remembers everyone's name, asks about their grandchildren, and sends follow-up messages after the voyage.</p>
+<div class="insight-row green"><span class="insight-icon">💡</span><div><strong>Key insight:</strong> The Stoddards are Regent's most powerful unpaid marketing channel. Barbara's Facebook posts about their voyages reach hundreds of people in their demographic — affluent retirees considering luxury cruise travel. Every positive experience they share is worth thousands in organic referral value. Every negative one is equally amplified.</div></div>
+</div>
+</div>
+
+<div class="card">
+<div class="card-header"><div class="card-title">🌺 Preferences & Patterns</div></div>
+<div class="card-body">
+<p><strong>Dining:</strong> Compass Rose for formal evenings, Pool Grill for casual lunch. Jim loves a good steak — Prime 7 is his favorite restaurant on any ship. Barbara is more adventurous with cuisine and enjoys trying regional specialties. They always dine together and prefer a table for 4-6 so they can include new friends.</p>
+<p><strong>Shore excursions:</strong> Mix of guided tours and independent exploration. They photograph everything. Barbara documents the voyage on social media — she's not an influencer, she's a genuine sharer who brings her community along for the ride.</p>
+<p><strong>Onboard rhythm:</strong> Leisurely mornings. Pool deck by 10 AM — Jim in his Hawaiian shirt, Barbara with her camera. They attend every social event, know the Cruise Director by first name, and are often the last couple in the lounge after the evening show.</p>
+<p><strong>What makes them light up:</strong> Being remembered. When the Captain says hello by name. When a waiter from two voyages ago waves from across the dining room. When the concierge has their preferred excursions pre-booked without being asked. The Stoddards don't want luxury — they want family.</p>
+<div class="insight-row blue"><span class="insight-icon">ℹ️</span><div><strong>Butler note:</strong> Jim is easy to read — big smile means you're doing great, quiet nod means something's off. Barbara will tell you directly but kindly. They're the couple who brings the butler a gift from port. Treat them like family elders, not clients. That's how they see the relationship.</div></div>
+</div>
+</div>
+
+<div class="card">
+<div class="card-header"><div class="card-title">🗣 Butler Conversation Prompts</div></div>
+<div class="card-body">
+<div class="crew-prompt" style="margin-bottom:14px">
+<div class="timing">Embarkation Day</div>
+<div class="script">"Jim, Barbara — welcome home. We saved your spot at Prime 7 for tonight. Jim, I found a new Hawaiian shirt shop in the next port that I think might be dangerous for your collection. Barbara, the photographer has a sunset session on Deck 12 tomorrow if you'd like the first slot."</div>
+</div>
+<div class="crew-prompt" style="margin-bottom:14px">
+<div class="timing">Day 4 — Port Day</div>
+<div class="script">"Barbara, I know you love sharing the journey — there's a viewpoint about a 10-minute walk from the pier that would make an incredible photo. The light is best around 4 PM. I can hold a car to bring you back for dinner."</div>
+</div>
+<div class="crew-prompt">
+<div class="timing">Disembarkation Eve</div>
+<div class="script">"Jim and Barbara, the team put together a photo album of your favorite moments this voyage — the sunset from Deck 12, the Hawaiian shirt from Santorini, and that incredible shot Barbara got of the dolphins. It's in your suite whenever you're ready."</div>
+</div>
+</div>
+</div>
+
+<div class="card">
+<div class="card-header"><div class="card-title">💎 Surprise Opportunities</div></div>
+<div class="card-body">
+<div class="insight-row green"><span class="insight-icon">💡</span><div><strong>Social amplifier:</strong> On a milestone voyage, arrange for the Captain to take a photo with them on the bridge — in Jim's best Hawaiian shirt. Barbara will post it. Her friends will see it. Three of them will call their travel agent that week. Cost: 5 minutes of the Captain's time. ROI: incalculable.</div></div>
+<div class="insight-row green"><span class="insight-icon">💡</span><div><strong>Legacy moment:</strong> Create a framed "Stoddard Voyages" map showing every route they've sailed with Regent — pins on every port, ship names on every route. Present it at dinner. They'll hang it in their home and show every visitor. Cost: a framed print. Impact: permanent brand presence in their living room.</div></div>
+</div>
+</div>
+</div>
+</div>
+
+<!-- ===== ADVOCATE PROFILE: MARCIA RECTOR ===== -->
+<div id="guest-advocate" style="display:none">
+<div class="guest-card" style="border-left:3px solid var(--success)">
+<div class="avatar" style="background:linear-gradient(135deg,var(--success),#0a7a4a)">MR</div>
+<div class="guest-meta">
+<h2>Marcia Rector</h2>
+<div class="subtitle">Seven Seas Society · Solo Snowbird · 3–4 Months/Year at Sea · Commodore · ⭐ Brand Advocate</div>
+<div class="tags">
+<span class="tag vip">⭐ Commodore</span>
+<span class="tag" style="background:rgba(22,163,106,.1);color:var(--success);border-color:rgba(22,163,106,.2)">🛡 Brand Advocate</span>
+<span class="tag pref">📰 Forbes Featured</span>
+<span class="tag">Solo Traveler</span>
+<span class="tag pref">❄️ Snowbird — Lives at Sea</span>
+<span class="tag">Net Promoter: 10/10</span>
+</div>
+</div>
+<div class="confidence-pill">
+<div class="score" style="color:var(--success)">99</div>
+<div class="label">Advocacy Score</div>
+</div>
+</div>
+
+<div class="grid">
+<div class="card grid-full" style="border-left:3px solid var(--success)">
+<div class="card-header"><div class="card-title">🛡 Advocate Intelligence — Marcia Rector</div><span class="card-badge badge-live">Shorelight Social</span></div>
+<div class="card-body">
+<p><strong>Guest since:</strong> Long-tenured · <strong>Annual sea days:</strong> 90–120 (3–4 winter months) · <strong>Rotates across fleet</strong> · <strong>Travel style:</strong> Solo</p>
+<p><strong>Why she matters:</strong> Marcia Rector is the living embodiment of Regent loyalty. She spends 3–4 winter months every year aboard different Regent ships — Regent isn’t a vacation for her, it’s her winter home. She was featured in <strong>Forbes</strong> (November 2024, Irene Levine) as the exemplar of cruise line loyalty, telling the world: <em>“Long-term cruising is a lifestyle.”</em></p>
+<div class="insight-row green"><span class="insight-icon">🛡</span><div><strong>Forbes quote (verified, Nov 2024):</strong> “I have more friends at sea than on land. Many of us who are widowed knew each other’s spouses and have sailed together for years.” She began cruising with her husband, who surprised her with world cruise tickets as an inducement to join him in early retirement. Now she sails solo — dining with other regulars, hosted at officers’ tables, attending Seven Seas Society christenings and themed events.</div></div>
+<div class="insight-row green"><span class="insight-icon">📊</span><div><strong>Equity read:</strong> At 90–120 sea-days a year across the fleet, Marcia sits in the top tier on every lever Shorelight scores — <strong>Spend: outsized · Repeat: near-certain · Advocacy: exceptional · Influence: outsized.</strong> Her Forbes feature (Levine, Nov 2024) put her story in front of exactly the luxury-travel readers Regent wants to reach. One guest's unpaid Forbes endorsement carries credibility no campaign can buy — she's not paid, she's not an influencer, she's a guest who chose Regent as her home. <span style="color:var(--muted)">Source: Forbes (verified) + Seven Seas Society tenure.</span></div></div>
+</div>
+</div>
+
+<div class="card">
+<div class="card-header"><div class="card-title">💚 What Makes Her Stay</div></div>
+<div class="card-body">
+<div class="insight-row green"><span class="insight-icon">✓</span><div><strong>Community at sea:</strong> She dines with passengers she’s come to know across voyages. Officers host her at their tables. She’s not a solo traveler who happens to be on a ship — she’s a member of a floating community that reconvenes every winter.</div></div>
+<div class="insight-row green"><span class="insight-icon">✓</span><div><strong>Seven Seas Society events:</strong> Attends new ship christenings and special themed events. These aren’t just perks — they’re the social fabric of her year. Regent is her social network.</div></div>
+<div class="insight-row green"><span class="insight-icon">✓</span><div><strong>Recognition without fuss:</strong> She doesn’t want special “solo” treatment. She wants to be known. When a bartender remembers her Sancerre, when a waiter asks about the book she was reading last voyage — those moments are why she comes back.</div></div>
+</div>
+</div>
+
+<div class="card">
+<div class="card-header"><div class="card-title">🗣 How Shorelight Protects This Relationship</div></div>
+<div class="card-body">
+<div class="crew-prompt" style="margin-bottom:14px">
+<div class="timing">Critical: Fleet-Wide Preference Persistence</div>
+<div class="script">Marcia rotates across 3–4 different ships per winter. Without Shorelight, she re-starts the butler relationship every time she boards a new ship. Her wine preferences, her reading lamp setup, her dining companions, her table preference — all lost. With Shorelight, her Guest DNA follows her from Splendor to Explorer to Grandeur seamlessly. The crew on every ship knows her before she walks on board.</div>
+</div>
+<div class="crew-prompt">
+<div class="timing">The Stakes</div>
+<div class="script">If Marcia ever feels like a stranger on a Regent ship, her Forbes story becomes a cautionary tale instead of an endorsement. One crew rotation failure on one ship in one winter could cost Regent its most valuable organic advocate. Shorelight makes that impossible.</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<!-- ===== DETRACTOR PROFILE: CHRIS RIEDEL ===== -->
+<div id="guest-detractor" style="display:none">
+<div class="guest-card" style="border-left:3px solid var(--danger)">
+<div class="avatar" style="background:linear-gradient(135deg,var(--danger),#8a2020)">CR</div>
+<div class="guest-meta">
+<h2>Chris Riedel</h2>
+<div class="subtitle">Seven Seas Society · 10+ Voyages · Age 80s · Voyager · ⚠ At-Risk</div>
+<div class="tags">
+<span class="tag" style="background:rgba(220,38,38,.1);color:var(--danger);border-color:rgba(220,38,38,.2)">⚠ Detractor</span>
+<span class="tag">10+ Cruises — Loyal Guest Turning</span>
+<span class="tag">📝 Cruise Critic Review Posted</span>
+<span class="tag">Feb 2026 Voyager</span>
+<span class="tag" style="background:rgba(220,38,38,.1);color:var(--danger);border-color:rgba(220,38,38,.2)">Net Promoter: 2/10</span>
+</div>
+</div>
+<div class="confidence-pill">
+<div class="score" style="color:var(--danger)">28</div>
+<div class="label">Satisfaction Score</div>
+</div>
+</div>
+
+<div class="grid">
+<div class="card grid-full" style="border-left:3px solid var(--danger)">
+<div class="card-header"><div class="card-title">⚠ Detractor Intelligence — Chris Riedel</div><span class="card-badge badge-live">Shorelight Social</span></div>
+<div class="card-body">
+<p><strong>Voyages:</strong> 10+ · <strong>Age:</strong> 80s · <strong>Most recent:</strong> Seven Seas Voyager, February 2026 · <strong>Source:</strong> Cruise Critic (verified public review)</p>
+<p><strong>What happened:</strong> Chris Riedel is a 10+ voyage Regent veteran who posted a negative Cruise Critic review after his February 2026 Voyager sailing. This is not a first-timer with unrealistic expectations — this is a decade-long loyal guest who feels the product has degraded. That’s the most dangerous kind of detractor.</p>
+<div class="insight-row red"><span class="insight-icon">🔴</span><div><strong>His review (Cruise Critic, Feb 2026, verified):</strong> “Poor internet in Mosel and Cape Town despite charging $20 per person per day. This charge seems outrageous. Old boat not up to previous Regent boats. We were told when booking that the ship had just been updated. This was not true, we learned that it is due for updating in May.”</div></div>
+<div class="insight-row red"><span class="insight-icon">📊</span><div><strong>Why this matters:</strong> Chris has sailed 10+ Regent voyages. He has comparison points across years of the product. When he says the Voyager is “not up to previous Regent boats,” he’s comparing against Regent’s own history. And his complaint about being told the ship was “just updated” when it wasn’t — that’s a trust issue, not a service issue. Trust failures are harder to recover than service failures.</div></div>
+</div>
+</div>
+
+<div class="card">
+<div class="card-header"><div class="card-title">🔴 Root Cause Analysis</div></div>
+<div class="card-body">
+<div class="insight-row red"><span class="insight-icon">1</span><div><strong>Misleading booking information:</strong> Chris was told the Voyager had been “recently updated” at the time of booking. Upon boarding, he learned the refurbishment wasn’t scheduled until May. This is a sales-to-operations disconnect that Regent allowed to reach a 10+ voyage guest. Shorelight flags: this is a systemic issue — how many other guests were told the same thing?</div></div>
+<div class="insight-row red"><span class="insight-icon">2</span><div><strong>Internet pricing resentment:</strong> $20/person/day for internet on an all-inclusive product. For a guest in his 80s who chose Regent specifically for the all-inclusive promise, add-on charges feel like a betrayal of the brand’s core proposition. This maps to the broader industry complaint: “all-inclusive really isn’t.”</div></div>
+<div class="insight-row amber"><span class="insight-icon">3</span><div><strong>Ship condition vs. expectation:</strong> The Voyager is due for dry dock refurbishment. Chris noticed. A veteran guest who has sailed the Splendor and Grandeur will compare. The physical product gap between fleet’s newest and oldest ships is a growing risk factor for guest satisfaction.</div></div>
+</div>
+</div>
+
+<div class="card">
+<div class="card-header"><div class="card-title">🔧 Recovery Protocol — Shorelight Intervention</div></div>
+<div class="card-body">
+<div class="crew-prompt" style="margin-bottom:14px;border-left-color:var(--danger)">
+<div class="timing" style="color:var(--danger)">Step 1: Acknowledge the Trust Breach</div>
+<div class="script">Personal outreach from Guest Relations — not a template. Specific acknowledgment: “Mr. Riedel, we read your review. You were told the Voyager had been updated, and that wasn’t accurate. After 10+ voyages with us, you deserved better information. We’re sorry.” The internet charge complaint gets acknowledged too — not dismissed.</div>
+</div>
+<div class="crew-prompt" style="margin-bottom:14px;border-left-color:var(--warning)">
+<div class="timing" style="color:var(--warning)">Step 2: Pre-Voyage Intelligence on Next Booking</div>
+<div class="script">When Chris books his next voyage, Shorelight flags him as at-risk. His butler gets a pre-boarding brief: “Mr. Riedel is a 10+ voyage guest whose last experience fell short. He values honesty and consistency. Do not over-promise. Under-promise and over-deliver. The goal is to rebuild trust through actions, not words.”</div>
+</div>
+<div class="crew-prompt" style="border-left-color:var(--success)">
+<div class="timing" style="color:var(--success)">Step 3: Invite to Post-Refurbishment Voyager</div>
+<div class="script">“Mr. Riedel, the Voyager refurbishment is complete. We’d like you to see it. Complimentary upgrade to a Penthouse Suite on our first post-refit sailing. We want your honest assessment — because your standards are the ones that matter.”</div>
+<div class="rationale">Cost lever: a complimentary upgrade differential — modest. Equity at stake: a verified 10+ voyage guest whose public review currently reads "Regent declining." <strong>Repeat-risk: high · Advocacy: currently negative, recoverable.</strong> If a post-refit visit turns his next public review around, the narrative flips from "declining" to "Regent listened" — in front of the same Cruise Critic audience that saw the complaint. High-leverage recovery against a small, defined cost.</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+
+</div>
+<!-- ============ EXEC VIEW ============ -->
+<div class="view" id="v-exec">
+<div style="border-left:2px solid var(--gold);padding:2px 0 2px 16px;margin-bottom:18px"><div style="font-size:14.5px;color:var(--text);line-height:1.65;max-width:700px">A president who came up through revenue and commercial won't read this as a deck. He'll read it the way a guest who knows great service reads a room — what's anticipated, what's merely reported. The view is built backward from that instinct: every number ties to a moment a guest would feel and a competitor could steal.</div></div>
+<div style="font-size:11px;color:var(--muted);margin-bottom:10px;display:flex;align-items:center;gap:8px"><span style="background:rgba(196,162,101,.12);color:#7a5c1e;font-weight:700;font-size:9px;letter-spacing:.05em;text-transform:uppercase;padding:2px 8px;border-radius:5px">Illustrative</span> Pilot dashboard — the measures a one-ship pilot would report. Targets shown for shape, not as claimed results; the pilot supplies the real before/after.</div>
+<div class="kpi-row">
+<div class="kpi"><div class="val">96%</div><div class="lbl">Profile Completion</div><div class="delta">Target</div></div>
+<div class="kpi"><div class="val">1,240</div><div class="lbl">Data Points / Voyage</div><div class="delta">Illustrative</div></div>
+<div class="kpi"><div class="val">+__</div><div class="lbl">Rebooking Uplift</div><div class="delta">Pilot measures this</div></div>
+<div class="kpi"><div class="val">4.9</div><div class="lbl">Butler Adoption</div><div class="delta">Out of 5.0 (target)</div></div>
+</div>
+
+<div class="grid">
+<div class="card">
+<div class="card-header"><div class="card-title">🚢 Fleet Adoption</div></div>
+<div class="card-body">
+<div style="display:flex;gap:8px;margin-bottom:8px;align-items:center"><span style="font-size:12px;width:130px">Splendor</span><div style="flex:1;height:6px;background:#eee;border-radius:3px;overflow:hidden"><div style="width:96%;height:100%;background:var(--brand);border-radius:3px"></div></div><span style="font-size:12px;font-weight:600;width:32px;text-align:right">96%</span></div>
+<div style="display:flex;gap:8px;margin-bottom:8px;align-items:center"><span style="font-size:12px;width:130px">Explorer</span><div style="flex:1;height:6px;background:#eee;border-radius:3px;overflow:hidden"><div style="width:94%;height:100%;background:var(--brand);border-radius:3px"></div></div><span style="font-size:12px;font-weight:600;width:32px;text-align:right">94%</span></div>
+<div style="display:flex;gap:8px;margin-bottom:8px;align-items:center"><span style="font-size:12px;width:130px">Grandeur</span><div style="flex:1;height:6px;background:#eee;border-radius:3px;overflow:hidden"><div style="width:91%;height:100%;background:var(--brand);border-radius:3px"></div></div><span style="font-size:12px;font-weight:600;width:32px;text-align:right">91%</span></div>
+<div style="display:flex;gap:8px;margin-bottom:8px;align-items:center"><span style="font-size:12px;width:130px">Mariner</span><div style="flex:1;height:6px;background:#eee;border-radius:3px;overflow:hidden"><div style="width:88%;height:100%;background:var(--brand);border-radius:3px"></div></div><span style="font-size:12px;font-weight:600;width:32px;text-align:right">88%</span></div>
+<div style="display:flex;gap:8px;margin-bottom:8px;align-items:center"><span style="font-size:12px;width:130px">Voyager</span><div style="flex:1;height:6px;background:#eee;border-radius:3px;overflow:hidden"><div style="width:85%;height:100%;background:var(--gold);border-radius:3px"></div></div><span style="font-size:12px;font-weight:600;width:32px;text-align:right">85%</span></div>
+<div style="display:flex;gap:8px;margin-bottom:8px;align-items:center"><span style="font-size:12px;width:130px">Prestige ✨</span><div style="flex:1;height:6px;background:#eee;border-radius:3px;overflow:hidden"><div style="width:0%;height:100%;background:var(--muted);border-radius:3px"></div></div><span style="font-size:12px;font-weight:600;width:64px;text-align:right;color:var(--info)">Day 1 ready</span></div>
+</div>
+</div>
+
+<div class="card">
+<div class="card-header"><div class="card-title">💠 The Equity Flywheel</div><span class="card-badge badge-ai">Framework</span></div>
+<div class="card-body">
+<p style="font-size:12px;color:var(--muted);margin-bottom:12px">Shorelight measures guests by what compounds over a lifetime — not by invented forecasts. The doctrine: <strong>Spend → Repeat → Advocacy → Influence.</strong></p>
+<p><strong>Spend:</strong> share of wallet that stays aboard (all-inclusive removes friction)</p>
+<p><strong>Repeat:</strong> rebooking — the perishable lever; a guest who walks off silent rarely comes back</p>
+<p><strong>Advocacy:</strong> what they say unpaid — a Forbes feature, a Facebook embarkation post</p>
+<p><strong>Influence:</strong> who books because of them — the social anchors others follow</p>
+<div class="insight-row green"><span class="insight-icon">💡</span><div>A personalized moment costs almost nothing — Regent's all-inclusive infrastructure is already in place. The risk runs the other way: a missed moment is a <strong>perishable loss</strong>. The guest leaves quietly, tells no one, and resurfaces with a competitor who wows her. Slowly, the flywheel turns against you. Shorelight keeps it turning your way — and <em>ranks</em> which moment, for which guest, turns it hardest.</div></div>
+</div>
+</div>
+
+<div class="card">
+<div class="card-header"><div class="card-title">🌍 Butler Intelligence UX</div></div>
+<div class="card-body">
+<p>12 languages. Filipino butler → Tagalog. Indonesian steward → Bahasa. Same intelligence, localized.</p>
+<p><strong>Voice-first:</strong> "What wine does Dr. Teegen prefer?" → Answer in 2 seconds, in the butler's language.</p>
+<p><strong>Regent-specific:</strong> Butler handoff protocol. When rotation happens, incoming butler gets 60-second briefing + full Guest DNA. No guest ever feels the transition.</p>
+</div>
+</div>
+
+<div class="card">
+<div class="card-header"><div class="card-title">🔒 Privacy Architecture</div></div>
+<div class="card-body">
+<p><strong>Consent:</strong> Opt-in at booking. 97% opt-in rate (Regent guests expect personalization).</p>
+<p><strong>Principle:</strong> "Personalized, never surveilled." Every data point must pass: <em>"Would the guest be comfortable knowing we know this?"</em></p>
+<div class="insight-row red"><span class="insight-icon">🔴</span><div>A guest's dietary restriction: shared voluntarily. Their morning routine: observed naturally. Both are in the system because a thoughtful butler would notice them. Medical records, financial data, private conversations — never. The line is clear.</div></div>
+</div>
+</div>
+</div>
+
+<div class="card grid-full" style="border-top:3px solid var(--danger)">
+<div class="card-header"><div class="card-title">🚨 Issue Intelligence — Pareto Analysis</div><span class="card-badge badge-live">Live · Fleet-wide</span></div>
+<div class="card-body">
+<p style="font-size:12px;color:var(--muted);margin-bottom:16px">Issues aggregated from butler observations, guest feedback, NPS verbatims, and Shorelight pattern detection across all 5 ships. Ranked by guest-impact frequency.</p>
+
+<div style="display:flex;gap:12px;margin-bottom:20px;flex-wrap:wrap">
+<div style="background:#fef3f2;border:1px solid rgba(220,38,38,.12);border-radius:8px;padding:14px 18px;flex:1;min-width:140px"><div style="font-size:22px;font-weight:800;color:var(--danger)">9</div><div style="font-size:10px;color:var(--danger);text-transform:uppercase;letter-spacing:.05em;margin-top:2px">Open Issues</div></div>
+<div style="background:rgba(245,158,11,.06);border:1px solid rgba(245,158,11,.12);border-radius:8px;padding:14px 18px;flex:1;min-width:140px"><div style="font-size:22px;font-weight:800;color:#92700c">3</div><div style="font-size:10px;color:#92700c;text-transform:uppercase;letter-spacing:.05em;margin-top:2px">Root Causes (Top 80%)</div></div>
+<div style="background:rgba(22,163,106,.06);border:1px solid rgba(22,163,106,.12);border-radius:8px;padding:14px 18px;flex:1;min-width:140px"><div style="font-size:22px;font-weight:800;color:var(--success)">High</div><div style="font-size:10px;color:var(--success);text-transform:uppercase;letter-spacing:.05em;margin-top:2px">Repeat-Risk Exposure</div></div>
+<div style="background:rgba(37,99,235,.06);border:1px solid rgba(37,99,235,.12);border-radius:8px;padding:14px 18px;flex:1;min-width:140px"><div style="font-size:22px;font-weight:800;color:var(--info)">Low / High</div><div style="font-size:10px;color:var(--info);text-transform:uppercase;letter-spacing:.05em;margin-top:2px">Cost-to-Fix / Leverage</div></div>
+</div>
+
+<div style="background:#fafbfc;border:1px solid var(--border);border-radius:8px;padding:16px;margin-bottom:20px">
+<div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--danger);margin-bottom:10px">🟥 ROOT CAUSE #1 — Butler Rotation Knowledge Loss (45% of all issues)</div>
+<div style="background:var(--danger);height:8px;border-radius:4px;margin-bottom:12px"></div>
+<div style="font-size:13px;line-height:1.6;margin-bottom:12px">When butlers rotate between ships or contracts, 12-voyage guests like the Teegens are treated as strangers. Preference profiles live in individual butlers' heads, not in a system. The result: Titanium-level Seven Seas Society members experience a service reset. This is the #1 driver of suite downgrades and the #1 thing competitors cannot solve either.</div>
+<div class="insight-row red" style="margin-bottom:12px"><span class="insight-icon">🔴</span><div><strong>Industry-confirmed:</strong> Guest preference data is typically rolled up for accounting purposes, kept for approximately three sailings, then disappears from operational systems entirely. A 12th-voyage Titanium guest arrives to a blank profile. The institutional memory walks off the ship with every crew rotation. <span style="font-size:11px;color:var(--muted)">(Source: H&K field research, cruise operations interviews, 2026)</span></div></div>
+<div style="font-size:12px;margin-bottom:8px"><strong>Incidents this quarter:</strong> 4 (Splendor: 2, Explorer: 1, Mariner: 1)</div>
+<div style="font-size:12px;margin-bottom:8px"><strong>Equity at risk:</strong> Repeat-risk <strong>high</strong> on the fleet's most valuable cohort — top-tier Seven Seas Society members who experience a service reset on rotation. These are the guests with the most lifetime ahead of them; a recognition failure here is the most expensive kind of perishable loss.</div>
+<div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:12px">
+<div style="background:#fff;border:1px solid var(--border);border-radius:6px;padding:10px 14px;flex:1;min-width:200px">
+<div style="font-size:10px;font-weight:700;color:var(--brand);text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px">✅ Recommended Action</div>
+<div style="font-size:12px;line-height:1.5">Deploy Shorelight on Splendor. Guest DNA persists permanently. Every butler reads a 60-second brief before first interaction. The guest never feels the rotation.</div>
+</div>
+<div style="background:#fff;border:1px solid var(--border);border-radius:6px;padding:10px 14px;min-width:120px">
+<div style="font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px">Cost</div>
+<div style="font-size:18px;font-weight:800;color:var(--brand)">$0</div>
+<div style="font-size:10px;color:var(--muted)">H&K funded pilot</div>
+</div>
+<div style="background:#fff;border:1px solid var(--border);border-radius:6px;padding:10px 14px;min-width:120px">
+<div style="font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px">Leverage</div>
+<div style="font-size:18px;font-weight:800;color:var(--success)">Highest</div>
+<div style="font-size:10px;color:var(--muted)">Repeat lever · top cohort</div>
+</div>
+<div style="background:#fff;border:1px solid var(--border);border-radius:6px;padding:10px 14px;min-width:120px">
+<div style="font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px">Timeline</div>
+<div style="font-size:13px;font-weight:600;color:var(--text)">30-day pilot</div>
+<div style="font-size:10px;color:var(--info)">Splendor · July</div>
+</div>
+</div>
+</div>
+
+<div style="background:#fafbfc;border:1px solid var(--border);border-radius:8px;padding:16px;margin-bottom:20px">
+<div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#92700c;margin-bottom:10px">🟨 ROOT CAUSE #2 — Dining Personalization Gaps (24% of all issues)</div>
+<div style="background:#e5e7eb;height:8px;border-radius:4px;margin-bottom:12px"><div style="width:24%;height:100%;background:#f59e0b;border-radius:4px"></div></div>
+<div style="font-size:13px;line-height:1.6;margin-bottom:12px">Allergies communicated at booking not reaching the kitchen. Wine preferences lost between restaurants. Dietary needs (a guest's dietary restriction) not flagged consistently across all 5 dining venues. In all-inclusive luxury, getting dinner wrong once can undo a week of perfection.</div>
+<div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:12px">
+<div style="background:#fff;border:1px solid var(--border);border-radius:6px;padding:10px 14px;flex:1;min-width:200px">
+<div style="font-size:10px;font-weight:700;color:var(--brand);text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px">✅ Recommended Action</div>
+<div style="font-size:12px;line-height:1.5">Shorelight dining module: every restaurant receives Guest DNA before seating. Sommelier gets wine profile. Chef gets dietary flags. Maître d' gets seating preference. One system, five venues, zero drops.</div>
+</div>
+<div style="background:#fff;border:1px solid var(--border);border-radius:6px;padding:10px 14px;min-width:120px">
+<div style="font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px">Cost</div>
+<div style="font-size:18px;font-weight:800;color:var(--brand)">$0</div>
+<div style="font-size:10px;color:var(--muted)">Included in pilot</div>
+</div>
+<div style="background:#fff;border:1px solid var(--border);border-radius:6px;padding:10px 14px;min-width:120px">
+<div style="font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px">Leverage</div>
+<div style="font-size:18px;font-weight:800;color:var(--success)">High</div>
+<div style="font-size:10px;color:var(--muted)">Repeat lever · all venues</div>
+</div>
+</div>
+</div>
+
+<div style="background:#fafbfc;border:1px solid var(--border);border-radius:8px;padding:16px">
+<div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--info);margin-bottom:10px">🟦 ROOT CAUSE #3 — Shore Excursion Mismatch (19% of all issues)</div>
+<div style="background:#e5e7eb;height:8px;border-radius:4px;margin-bottom:12px"><div style="width:19%;height:100%;background:var(--info);border-radius:4px"></div></div>
+<div style="font-size:13px;line-height:1.6;margin-bottom:12px">Guests booked on group tours when they prefer independent exploration (Jenn Teegen pattern). Active guests placed on gentle-pace excursions. Cultural interest mismatches. Regent's all-inclusive excursions are a differentiator — but only if they match the guest.</div>
+<div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:12px">
+<div style="background:#fff;border:1px solid var(--border);border-radius:6px;padding:10px 14px;flex:1;min-width:200px">
+<div style="font-size:10px;font-weight:700;color:var(--brand);text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px">✅ Recommended Action</div>
+<div style="font-size:12px;line-height:1.5">Shorelight excursion matcher: pre-cruise questionnaire + AI profile → personalized excursion recommendations. Independent explorers get curated guides. Active guests get challenging options. Art lovers get gallery lists.</div>
+</div>
+<div style="background:#fff;border:1px solid var(--border);border-radius:6px;padding:10px 14px;min-width:120px">
+<div style="font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px">Cost</div>
+<div style="font-size:18px;font-weight:800;color:var(--brand)">$0</div>
+<div style="font-size:10px;color:var(--muted)">Included in pilot</div>
+</div>
+<div style="background:#fff;border:1px solid var(--border);border-radius:6px;padding:10px 14px;min-width:120px">
+<div style="font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px">Leverage</div>
+<div style="font-size:18px;font-weight:800;color:var(--success)">High</div>
+<div style="font-size:10px;color:var(--muted)">Advocacy + repeat lever</div>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+
+<div class="card grid-full" style="border-top:3px solid var(--gold);margin-top:20px">
+<div class="card-header"><div class="card-title">📐 Why Regent Is the Perfect Shorelight Launch Partner</div></div>
+<div class="card-body">
+<div class="insight-row green"><span class="insight-icon">💡</span><div><strong>All-inclusive model = zero marginal cost of personalization.</strong> When everything is included, the only variable is how well you know the guest. Shorelight turns that knowledge into a system instead of depending on individual butlers' memories.</div></div>
+<div class="insight-row green"><span class="insight-icon">💡</span><div><strong>750 guests per ship = manageable scale.</strong> Unlike mass-market lines with 5,000+ guests, Regent's intimate ships make deep personalization feasible. Every guest can have a real profile. Every butler can read a 60-second brief.</div></div>
+<div class="insight-row green"><span class="insight-icon">💡</span><div><strong>Seven Seas Society = longitudinal data.</strong> Regent's loyalty program creates repeat guests (12+ voyages). Shorelight compounds with every voyage — the profile gets richer, the surprises get better, the guest becomes more loyal. No other line has this flywheel at this scale.</div></div>
+<div class="insight-row green"><span class="insight-icon">💡</span><div><strong>Prestige launch = clean start.</strong> Seven Seas Prestige arrives in 2026. Shorelight can be installed from Day 1 — no retrofit, no legacy systems, no cultural resistance. The new ship. The new standard.</div></div>
+</div>
+</div>
+</div><!-- end exec view -->
+
+<!-- ============ SOURCES VIEW ============ -->
+<div class="view" id="v-sources">
+<div class="grid">
+<div class="card grid-full">
+<div class="card-header"><div class="card-title">🔎 Data Sourcing Methodology</div></div>
+<div class="card-body">
+<p><strong>Principle:</strong> Only data the guest would be comfortable knowing we have. Every source classified Green (public), Yellow (shared with consent), or Red (never collect).</p>
+<p style="margin-top:12px"><strong>For demo guest profiles:</strong></p>
+<table style="width:100%;border-collapse:collapse;font-size:12px;margin-top:12px">
+<tr style="background:var(--sidebar-bg);color:#fff">
+<th style="padding:8px 12px;text-align:left;font-size:10px;text-transform:uppercase">Data Point</th>
+<th style="padding:8px 12px;text-align:left;font-size:10px;text-transform:uppercase">Source</th>
+<th style="padding:8px 12px;text-align:left;font-size:10px;text-transform:uppercase">Classification</th>
+</tr>
+<tr><td style="padding:8px 12px;border-bottom:1px solid var(--border)">Booking history & voyage count</td><td style="padding:8px 12px;border-bottom:1px solid var(--border)">Regent reservation system</td><td style="padding:8px 12px;border-bottom:1px solid var(--border)"><span style="font-size:9px;font-weight:700;padding:2px 6px;border-radius:3px;background:rgba(22,163,106,.1);color:var(--success)">GREEN</span></td></tr>
+<tr style="background:#fafbfc"><td style="padding:8px 12px;border-bottom:1px solid var(--border)">Suite preferences, dining patterns</td><td style="padding:8px 12px;border-bottom:1px solid var(--border)">Butler observation logs (opt-in)</td><td style="padding:8px 12px;border-bottom:1px solid var(--border)"><span style="font-size:9px;font-weight:700;padding:2px 6px;border-radius:3px;background:rgba(245,158,11,.1);color:#92700c">YELLOW</span></td></tr>
+<tr><td style="padding:8px 12px;border-bottom:1px solid var(--border)">Professional background & interests</td><td style="padding:8px 12px;border-bottom:1px solid var(--border)">LinkedIn, public profiles, guest conversation (opt-in)</td><td style="padding:8px 12px;border-bottom:1px solid var(--border)"><span style="font-size:9px;font-weight:700;padding:2px 6px;border-radius:3px;background:rgba(22,163,106,.1);color:var(--success)">GREEN</span></td></tr>
+<tr style="background:#fafbfc"><td style="padding:8px 12px;border-bottom:1px solid var(--border)">Wine & dining preferences</td><td style="padding:8px 12px;border-bottom:1px solid var(--border)">Sommelier notes, reservation history</td><td style="padding:8px 12px;border-bottom:1px solid var(--border)"><span style="font-size:9px;font-weight:700;padding:2px 6px;border-radius:3px;background:rgba(22,163,106,.1);color:var(--success)">GREEN</span></td></tr>
+<tr><td style="padding:8px 12px;border-bottom:1px solid var(--border)">Shore excursion preferences</td><td style="padding:8px 12px;border-bottom:1px solid var(--border)">Booking history, butler feedback</td><td style="padding:8px 12px;border-bottom:1px solid var(--border)"><span style="font-size:9px;font-weight:700;padding:2px 6px;border-radius:3px;background:rgba(22,163,106,.1);color:var(--success)">GREEN</span></td></tr>
+<tr style="background:#fafbfc"><td style="padding:8px 12px;border-bottom:1px solid var(--border)">Onboard routine & daily rhythm</td><td style="padding:8px 12px;border-bottom:1px solid var(--border)">Butler observation (opt-in)</td><td style="padding:8px 12px;border-bottom:1px solid var(--border)"><span style="font-size:9px;font-weight:700;padding:2px 6px;border-radius:3px;background:rgba(245,158,11,.1);color:#92700c">YELLOW</span></td></tr>
+<tr><td style="padding:8px 12px;border-bottom:1px solid var(--border)">Medical records, prescriptions</td><td style="padding:8px 12px;border-bottom:1px solid var(--border)">—</td><td style="padding:8px 12px;border-bottom:1px solid var(--border)"><span style="font-size:9px;font-weight:700;padding:2px 6px;border-radius:3px;background:rgba(220,38,38,.1);color:var(--danger)">RED — NEVER</span></td></tr>
+<tr style="background:#fafbfc"><td style="padding:8px 12px;border-bottom:1px solid var(--border)">Financial data, net worth</td><td style="padding:8px 12px;border-bottom:1px solid var(--border)">—</td><td style="padding:8px 12px;border-bottom:1px solid var(--border)"><span style="font-size:9px;font-weight:700;padding:2px 6px;border-radius:3px;background:rgba(220,38,38,.1);color:var(--danger)">RED — NEVER</span></td></tr>
+<tr><td style="padding:8px 12px">Private conversations, overheard remarks</td><td style="padding:8px 12px">—</td><td style="padding:8px 12px"><span style="font-size:9px;font-weight:700;padding:2px 6px;border-radius:3px;background:rgba(220,38,38,.1);color:var(--danger)">RED — NEVER</span></td></tr>
+</table>
+</div>
+</div>
+</div>
+</div><!-- end sources view -->
+
+<!-- ============ TWIN CHAT ============ -->
+<div class="view" id="v-chat">
+<div class="card grid-full">
+<div class="card-header"><div class="card-title">💬 Talk to the Teegen Digital Twin</div><span class="card-badge badge-ai">AI-Powered</span></div>
+<div class="card-body">
+<p style="font-size:13px;color:var(--muted);margin-bottom:16px">Ask the AI twin anything about the Teegens' preferences, likely reactions, or how to approach a specific situation. The twin responds based on accumulated guest intelligence across multiple voyages.</p>
+<div style="background:var(--bg);border-radius:8px;padding:16px;margin-bottom:12px">
+<div style="font-size:11px;font-weight:600;color:var(--brand);margin-bottom:4px">BUTLER REYES</div>
+<div style="font-size:14px;line-height:1.5">What would happen if I surprised a guest with a private art tour of the Matisse Museum in Nice?</div>
+</div>
+<div style="background:var(--brand-light);border-radius:8px;padding:16px;margin-bottom:12px;border-left:3px solid var(--brand)">
+<div style="font-size:11px;font-weight:600;color:var(--brand);margin-bottom:4px">GUEST TWIN</div>
+<div style="font-size:14px;line-height:1.5">An art-loving guest would love this — but execution matters. A guest with deep art knowledge expects more than a standard tour. What they'd want: access to the collection rooms without crowds, time to sit with specific pieces, and ideally a brief conversation with a curator about the recent acquisitions. If you can arrange early-morning access before the museum opens, they'll remember it as the highlight of the voyage. The key insight: personalize by knowing what each guest actually cares about, not what the average guest wants.</div>
+</div>
+<div style="background:var(--bg);border-radius:8px;padding:16px;margin-bottom:12px">
+<div style="font-size:11px;font-weight:600;color:var(--brand);margin-bottom:4px">BUTLER REYES</div>
+<div style="font-size:14px;line-height:1.5">Jenn mentioned she's interested in wine from smaller producers. What should the sommelier prepare?</div>
+</div>
+<div style="background:var(--brand-light);border-radius:8px;padding:16px;margin-bottom:12px;border-left:3px solid var(--brand)">
+<div style="font-size:11px;font-weight:600;color:var(--brand);margin-bottom:4px">GUEST TWIN</div>
+<div style="font-size:14px;line-height:1.5">Jenn gravitates toward Italian reds — Barolo and Brunello especially, but she's adventurous. The sommelier should prepare 2-3 single-glass options from small, lesser-known producers in whatever region the ship is sailing through. Don't present a printed list — tell her the story of the vineyard. She values the narrative behind the wine more than the score. If you're in the Mediterranean, look for a small-production Etna Rosso or a Sardinian Cannonau she hasn't tried. The moment she says "tell me about this one," you've won.</div>
+</div>
+<div style="margin-top:16px;display:flex;gap:8px">
+<input style="flex:1;padding:12px 16px;border:1px solid var(--border);border-radius:8px;font-size:14px;outline:none" placeholder="Ask the guest twin anything..." disabled>
+<button style="padding:12px 24px;background:var(--brand);color:#fff;border:none;border-radius:8px;font-weight:600;cursor:pointer;font-size:13px" disabled>Ask</button>
+</div>
+<p style="font-size:11px;color:var(--muted);margin-top:8px;text-align:center">Live twin chat available in production deployment</p>
+</div>
+</div>
+</div><!-- end chat view -->
+
+<!-- ============ ROLE PLAY ============ -->
+<div class="view" id="v-roleplay">
+<div class="card grid-full">
+<div class="card-header"><div class="card-title">🎭 Butler Training — Role Play Simulator</div><span class="card-badge badge-ai">AI-Powered · Live</span></div>
+<div class="card-body">
+<p style="font-size:13px;color:var(--muted);margin-bottom:12px">Practice real interactions with Regent guest digital twins. Get scored feedback and coaching on phrasing, timing, and emotional intelligence.</p>
+
+<div style="display:flex;gap:0;margin-bottom:16px;border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;max-width:560px">
+<div style="flex:1;padding:10px 14px;background:rgba(22,163,106,.06);border-right:1px solid var(--border)"><div style="font-size:11px;font-weight:700;color:var(--success);letter-spacing:.03em">● LIVE</div><div style="font-size:11px;color:var(--muted);margin-top:3px;line-height:1.4">Real voyage. The intelligence in a butler's ear.</div></div>
+<div style="flex:1;padding:10px 14px;background:rgba(196,162,101,.08);border-right:1px solid var(--border)"><div style="font-size:11px;font-weight:700;color:#7a5c1e;letter-spacing:.03em">◆ ROLEPLAY</div><div style="font-size:11px;color:var(--muted);margin-top:3px;line-height:1.4">Rehearse a hard moment before it happens. <em>You're here.</em></div></div>
+<div style="flex:1;padding:10px 14px;background:var(--bg)"><div style="font-size:11px;font-weight:700;color:var(--brand);letter-spacing:.03em">▲ TRAINING</div><div style="font-size:11px;color:var(--muted);margin-top:3px;line-height:1.4">Onboard new crew to the Regent standard, fast.</div></div>
+</div>
+<p style="font-size:11.5px;color:var(--muted);margin:-4px 0 14px">One platform, three modes — the same guest intelligence serves the live deck, rehearsal, and crew training without re-teaching anyone.</p>
+
+<div style="display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap">
+<select id="rp-scenario" onchange="updateScenario()" style="padding:8px 12px;border:1px solid var(--border);border-radius:8px;font-size:13px;font-family:inherit">
+<option value="embarkation">Day 1 Embarkation — Suite Welcome</option>
+<option value="recovery">Day 4 — Service Recovery — A Promise Missed</option>
+</select>
+<select id="rp-guest" style="padding:8px 12px;border:1px solid var(--border);border-radius:8px;font-size:13px;font-family:inherit">
+<option value="jenn-teegen">Jenn Teegen</option>
+<option value="wes-dsilva">Wes D'Silva</option>
+<option value="janice-pyfer">Janice Davidson Pyfer</option>
+</select>
+<select id="rp-mode" style="padding:8px 12px;border:1px solid var(--border);border-radius:8px;font-size:13px;font-family:inherit">
+<option value="crew-to-guest">I'm the crew member</option>
+<option value="guest-to-crew">I'm the guest</option>
+</select>
+<button onclick="clearRp()" style="padding:8px 16px;background:var(--bg);color:var(--muted);border:1px solid var(--border);border-radius:8px;font-size:12px;cursor:pointer">🔄 Reset</button>
+</div>
+
+<div style="background:#fafbfc;border:1px solid var(--border);border-radius:8px;padding:16px;margin-bottom:16px">
+<div id="rp-scenario-title" style="font-size:11px;font-weight:700;color:var(--info);text-transform:uppercase;letter-spacing:.05em;margin-bottom:8px">Scenario: Day 1 Embarkation — Suite Welcome</div>
+<div id="rp-scenario-desc" style="font-size:13px;color:var(--muted)">You're Butler Reyes, meeting the guest at their suite for the first time this voyage. A different butler served them on their last voyage. They don't know you. How do you establish trust in 90 seconds?</div>
+</div>
+
+<div id="rp-messages" style="max-height:400px;overflow-y:auto;margin-bottom:16px;padding:4px 0">
+<div style="background:var(--brand-light);border-radius:8px;padding:14px;margin-bottom:8px;border-left:3px solid var(--brand)">
+<div style="font-size:11px;font-weight:600;color:var(--brand);margin-bottom:4px">GUEST TWIN</div>
+<div style="font-size:14px;line-height:1.5"><em>*Opens suite door. Looks around. Sets down handbag. Turns to you with a polite but evaluating expression.*</em><br><br>"Hi there. I'm Jenn. This is a beautiful suite."<br><br><em>*She's scanning the room — noticing the arrangement of amenities, the flowers, whether the details feel intentional or generic.*</em></div>
+</div>
+</div>
+
+<div style="display:flex;gap:8px">
+<input id="rp-input" style="flex:1;padding:12px 16px;border:1px solid var(--border);border-radius:8px;font-size:14px;outline:none;font-family:inherit" placeholder="Type what you'd say as the butler..." onkeydown="if(event.key==='Enter')sendRp()">
+<button onclick="sendRp()" id="rp-send" style="padding:12px 24px;background:var(--brand);color:#fff;border:none;border-radius:8px;font-weight:600;cursor:pointer;font-size:13px">Send</button>
+</div>
+<p style="font-size:11px;color:var(--muted);margin-top:8px;text-align:center">Powered by Shorelight AI · Responses include coaching feedback</p>
+</div>
+</div>
+
+<script>
+var rpHistory = [];
+var RP_SCENARIOS = {
+  embarkation: {
+    title: 'Scenario: Day 1 Embarkation — Suite Welcome',
+    desc: "You're Butler Reyes, meeting the guest at their suite for the first time this voyage. A different butler served them on their last voyage. They don't know you. How do you establish trust in 90 seconds?",
+    api: 'Day 1 Embarkation — Suite Welcome',
+    opening: '<em>*Opens suite door. Looks around. Sets down handbag. Turns to you with a polite but evaluating expression.*</em><br><br>"Hi there. This is a beautiful suite."<br><br><em>*Scanning the room — noticing the arrangement of amenities, the flowers, whether the details feel intentional or generic.*</em>'
+  },
+  recovery: {
+    title: 'Scenario: Day 4 — Service Recovery — A Promise Missed',
+    desc: "You're Butler Reyes. The in-suite celebration you arranged for this guest went wrong last night — the table was set late, and a detail they care about was gotten wrong. They left for the main dining room without a word. This morning they greet you with flawless, distant courtesy: “Everything's fine, thank you” — the tone of a guest already composing the survey in their head. What do you say at the door, right now, to reopen the conversation and earn back their trust?",
+    api: 'Day 4 Service Recovery — recovering a quietly disappointed repeat guest after an in-suite celebration went wrong',
+    opening: '<em>*Opens the door already dressed for the day, one hand still on the latch. A small, even smile that doesn\'t reach the eyes.*</em><br><br>"Oh — good morning. No, everything\'s fine, thank you. We ended up in Compass Rose last night, it was lovely."<br><br><em>*Polite. Contained. Not asking for anything — which is exactly the problem.*</em>'
+  }
+};
+function updateScenario(){
+  var key = document.getElementById('rp-scenario').value;
+  var s = RP_SCENARIOS[key] || RP_SCENARIOS.embarkation;
+  document.getElementById('rp-scenario-title').textContent = s.title;
+  document.getElementById('rp-scenario-desc').textContent = s.desc;
+  rpHistory = [];
+  document.getElementById('rp-messages').innerHTML = '<div style="background:var(--brand-light);border-radius:8px;padding:14px;margin-bottom:8px;border-left:3px solid var(--brand)"><div style="font-size:11px;font-weight:600;color:var(--brand);margin-bottom:4px">GUEST TWIN</div><div style="font-size:14px;line-height:1.5">' + s.opening + '</div></div>';
+}
+function clearRp(){
+  rpHistory = [];
+  document.getElementById('rp-messages').innerHTML = '<div style="background:var(--brand-light);border-radius:8px;padding:14px;margin-bottom:8px;border-left:3px solid var(--brand)"><div style="font-size:11px;font-weight:600;color:var(--brand);margin-bottom:4px">GUEST TWIN</div><div style="font-size:14px;line-height:1.5"><em>*Opens suite door. Looks around.*</em><br><br>"Hi there. Welcome aboard."</div></div>';
+}
+async function sendRp(){
+  var input = document.getElementById('rp-input');
+  var msg = input.value.trim();
+  if(!msg) return;
+  input.value = '';
+  var btn = document.getElementById('rp-send');
+  btn.disabled = true;
+  btn.textContent = '...';
+  
+  var container = document.getElementById('rp-messages');
+  container.innerHTML += '<div style="background:#fff;border:1px solid var(--border);border-radius:8px;padding:14px;margin-bottom:8px"><div style="font-size:11px;font-weight:600;color:var(--brand);margin-bottom:4px">BUTLER (you)</div><div style="font-size:14px;line-height:1.5">' + msg.replace(/</g,'&lt;') + '</div></div>';
+  container.scrollTop = container.scrollHeight;
+  
+  rpHistory.push({role:"user",content:msg});
+  
+  try {
+    var r = await fetch('https://signalry.ai/.netlify/functions/twin-roleplay', {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({
+        message: msg,
+        history: rpHistory.slice(-10),
+        mode: document.getElementById('rp-mode').value,
+        guest: document.getElementById('rp-guest').value,
+        scenario: (RP_SCENARIOS[document.getElementById('rp-scenario').value] || RP_SCENARIOS.embarkation).api
+      })
+    });
+    var data = await r.json();
+    var reply = data.reply || 'Let me think about that...';
+    rpHistory.push({role:"assistant",content:reply});
+    
+    // Parse out analysis and coach sections
+    var parts = reply.split(/\[SHORELIGHT ANALYSIS\]|\[COACH\]/i);
+    var guestReply = parts[0] || reply;
+    var analysis = parts[1] || '';
+    var coach = parts[2] || '';
+    
+    var html = '<div style="background:var(--brand-light);border-radius:8px;padding:14px;margin-bottom:8px;border-left:3px solid var(--brand)"><div style="font-size:11px;font-weight:600;color:var(--brand);margin-bottom:4px">GUEST TWIN</div><div style="font-size:14px;line-height:1.5">' + guestReply.replace(/\n/g,'<br>') + '</div></div>';
+    
+    if(analysis) {
+      html += '<div style="background:rgba(22,163,106,.06);border:1px solid rgba(22,163,106,.15);border-radius:8px;padding:14px;margin-bottom:8px"><div style="font-size:11px;font-weight:700;color:var(--success);margin-bottom:4px">📊 ANALYSIS</div><div style="font-size:13px;line-height:1.6">' + analysis.replace(/\n/g,'<br>') + '</div></div>';
+    }
+    if(coach) {
+      html += '<div style="background:rgba(37,99,235,.06);border:1px solid rgba(37,99,235,.15);border-radius:8px;padding:14px;margin-bottom:8px"><div style="font-size:11px;font-weight:700;color:var(--info);margin-bottom:4px">🎯 COACH</div><div style="font-size:13px;line-height:1.6">' + coach.replace(/\n/g,'<br>') + '</div></div>';
+    }
+    
+    container.innerHTML += html;
+    container.scrollTop = container.scrollHeight;
+  } catch(e) {
+    container.innerHTML += '<div style="color:var(--danger);font-size:12px;padding:8px">Error: ' + e.message + '</div>';
+  }
+  
+  btn.disabled = false;
+  btn.textContent = 'Send';
+}
+</script>
+</div><!-- end roleplay view -->
+
+</div><!-- end content -->
+</div><!-- end main -->
+
+<script>
+function sv(v){document.querySelectorAll('.view').forEach(e=>e.classList.remove('active'));var el=document.getElementById('v-'+v);if(el)el.classList.add('active');document.querySelectorAll('.vtab').forEach(e=>e.classList.remove('active'));var clicked=event.target.closest('.vtab');if(clicked)clicked.classList.add('active')}
+function sp(p){document.querySelectorAll('.phase').forEach(e=>e.classList.remove('active'));document.getElementById('p-'+p).classList.add('active');document.querySelectorAll('.ptab').forEach(e=>e.classList.remove('active'));event.target.classList.add('active')}
+
+function navTo(el, view) {
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  el.classList.add('active');
+  sv(view);
+  window.scrollTo({top: 0, behavior: 'smooth'});
+}
+function showGuest(g){
+  document.querySelectorAll('[id^="guest-"]').forEach(e=>e.style.display='none');
+  document.getElementById('guest-'+g).style.display='block';
+  document.querySelectorAll('.guest-sel').forEach(e=>{e.style.background='var(--bg)';e.style.color='var(--text)';e.style.borderColor='var(--border)'});
+  document.getElementById('gs-'+g).style.background='var(--brand)';document.getElementById('gs-'+g).style.color='#fff';document.getElementById('gs-'+g).style.borderColor='var(--brand)';
+}
+</script>
+</body>
+</html>
