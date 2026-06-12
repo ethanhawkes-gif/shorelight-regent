@@ -438,19 +438,11 @@ body{
 <p style="color:var(--gold);font-size:9px;letter-spacing:.1em;text-transform:uppercase;margin-top:8px;opacity:.6">Configured for Regent Seven Seas</p>
 </div>
 <nav class="sidebar-nav">
-<div class="nav-section">Intelligence</div>
+<div class="nav-section">Navigate</div>
+<div class="nav-item active" onclick="navTo(this,'promise')"><span class="icon">✦</span> The Promise</div>
 <div class="nav-item" onclick="navTo(this,'crew')"><span class="icon">👤</span> Guest Profiles</div>
-<div class="nav-item" onclick="navTo(this,'crew')"><span class="icon">🔍</span> Guest Lookup</div>
 <div class="nav-item" onclick="navTo(this,'exec')"><span class="icon">📊</span> Voyage Dashboard</div>
-<div class="nav-item" onclick="navTo(this,'crew')"><span class="icon">💡</span> Moment Engine</div>
-<div class="nav-section">Operations</div>
-<div class="nav-item" onclick="navTo(this,'crew')"><span class="icon">🗓</span> Daily Briefing</div>
-<div class="nav-item" onclick="navTo(this,'crew')"><span class="icon">👥</span> Butler Assignments</div>
-<div class="nav-item" onclick="navTo(this,'crew')"><span class="icon">📝</span> Log Observation</div>
-<div class="nav-section">Insights</div>
-<div class="nav-item" onclick="navTo(this,'exec')"><span class="icon">📈</span> Analytics</div>
-<div class="nav-item" onclick="navTo(this,'exec')"><span class="icon">🏆</span> Top Moments</div>
-<div class="nav-item" onclick="navTo(this,'sources')"><span class="icon">⚙️</span> Settings</div>
+<div class="nav-item" onclick="navTo(this,'sources')"><span class="icon">🔎</span> Sources &amp; Method</div>
 </nav>
 <div class="sidebar-footer">
 <div class="ship"><span class="dot"></span> Seven Seas Splendor · Live</div>
@@ -1667,6 +1659,6 @@ function showGuest(g){
   document.getElementById('gs-'+g).style.background='var(--brand)';document.getElementById('gs-'+g).style.color='#fff';document.getElementById('gs-'+g).style.borderColor='var(--brand)';
 }
 </script>
-<script>(function(){try{var g=(location.hash||"").replace("#","").toLowerCase();var ok=["teegen","brandon","wes","janice","rector","bittle","stoddard","advocate","detractor"];if(ok.indexOf(g)>=0){var el=document.getElementById("gs-"+g);if(el)el.click();}}catch(e){}})();</script>
+<script>(function(){try{var g=(location.hash||"").replace("#","").toLowerCase();var ok=["teegen","brandon","wes","janice","rector","bittle","stoddard","advocate","detractor"];if(ok.indexOf(g)>=0){document.querySelectorAll('.view').forEach(function(e){e.classList.remove('active')});var cv=document.getElementById('v-crew');if(cv)cv.classList.add('active');document.querySelectorAll('.vtab').forEach(function(e){e.classList.remove('active');if(/Crew View/.test(e.textContent))e.classList.add('active')});document.querySelectorAll('.nav-item').forEach(function(e){e.classList.remove('active');if(/Guest Profiles/.test(e.textContent))e.classList.add('active')});var el=document.getElementById("gs-"+g);if(el)el.click();window.scrollTo({top:0});}}catch(e){}})();</script>
 </body>
 </html>
