@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Hawkes &amp; Kwortnik × Regent Seven Seas — Exploratory Conversation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#0c1f2a; --navy2:#0a1722; --ink:#0a1422; --paper:#f7f4ee;
+    --gold:#c9a25b; --gold-soft:rgba(201,162,91,.14); --line:rgba(247,244,238,.16);
+    --text:#eef2f4; --muted:#a9b6bd; --green:#5db98a;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%}
+  body{font-family:'Inter',system-ui,sans-serif;background:var(--ink);color:var(--text);overflow:hidden}
+  .deck{height:100vh;width:100vw;position:relative}
+  .slide{position:absolute;inset:0;display:none;flex-direction:column;justify-content:center;
+    padding:7vh 9vw;background:radial-gradient(120% 120% at 80% -10%,#12303f 0%,var(--navy) 42%,var(--navy2) 100%)}
+  .slide.active{display:flex;animation:fade .4s ease}
+  @keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+  .eyebrow{font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:20px}
+  h1{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:clamp(34px,5.4vw,68px);line-height:1.04;letter-spacing:-.01em}
+  h2{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:clamp(28px,3.8vw,46px);line-height:1.08;margin-bottom:26px}
+  .lede{font-size:clamp(16px,1.5vw,21px);color:var(--muted);font-weight:300;line-height:1.55;max-width:46ch;margin-top:22px}
+  ul{list-style:none;display:flex;flex-direction:column;gap:16px;margin-top:6px}
+  li{position:relative;padding-left:26px;font-size:clamp(15px,1.45vw,19px);line-height:1.5;max-width:62ch}
+  li::before{content:'';position:absolute;left:0;top:.62em;width:8px;height:8px;border-radius:50%;background:var(--gold)}
+  li b{color:#fff;font-weight:600}
+  .muted{color:var(--muted)}
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:30px 46px;margin-top:8px}
+  .card{border:1px solid var(--line);border-radius:12px;padding:22px 24px;background:rgba(255,255,255,.02)}
+  .card h3{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:24px;margin-bottom:8px}
+  .card p{font-size:15px;color:var(--muted);line-height:1.5}
+  .tag{display:inline-block;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);
+    border:1px solid var(--gold);border-radius:999px;padding:5px 12px;margin-bottom:14px}
+  .people{display:flex;flex-wrap:wrap;gap:14px;margin-top:30px}
+  .person{border:1px solid var(--line);border-radius:10px;padding:12px 16px;min-width:0}
+  .person .n{font-weight:600;font-size:15px}
+  .person .r{font-size:12.5px;color:var(--muted);margin-top:2px}
+  .big{font-family:'Cormorant Garamond',serif;font-size:clamp(40px,7vw,96px);font-weight:600;color:var(--gold);line-height:1}
+  .quote{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:clamp(22px,3vw,38px);line-height:1.25;max-width:24ch}
+  .foot{position:absolute;left:9vw;bottom:4vh;font-size:12px;color:var(--muted);letter-spacing:.04em}
+  .nav{position:absolute;right:9vw;bottom:4vh;font-size:12px;color:var(--muted);letter-spacing:.08em}
+  .nav b{color:var(--text)}
+  .progress{position:absolute;left:0;bottom:0;height:3px;background:var(--gold);transition:width .35s ease}
+  .kbd{display:inline-block;border:1px solid var(--line);border-radius:5px;padding:1px 7px;font-size:11px;color:var(--muted)}
+  a{color:var(--gold)}
+  .link{font-size:15px;margin-top:24px;color:var(--gold);text-decoration:none;border-bottom:1px solid var(--gold-soft)}
+  .ask{border-left:2px solid var(--gold);padding-left:18px;margin-top:18px}
+  .ask .who{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:4px}
+  .ask p{font-size:clamp(15px,1.45vw,18.5px);line-height:1.45;max-width:60ch}
+</style>
+</head>
+<body>
+<div class="deck" id="deck">
+
+  <!-- 1 -->
+  <section class="slide active">
+    <div class="eyebrow">Hawkes &amp; Kwortnik · 12 June 2026</div>
+    <h1>Recognition without surveillance.<br>An exploratory conversation with Regent Seven Seas.</h1>
+    <p class="lede">Not a pitch — a shared inquiry. What would it take to make every Regent guest feel known, in a way that deepens loyalty without ever feeling watched?</p>
+    <div class="people">
+      <div class="person"><div class="n">Jennefer Teegen</div><div class="r">Regent — Brand Experience &amp; Loyalty</div></div>
+      <div class="person"><div class="n">Prof. Rob Kwortnik</div><div class="r">Cornell · Hawkes &amp; Kwortnik</div></div>
+      <div class="person"><div class="n">Brandon Teegen</div><div class="r">Cresta — Solutions Engineering</div></div>
+      <div class="person"><div class="n">Ethan Hawkes</div><div class="r">Hawkes &amp; Kwortnik · Shorelight</div></div>
+    </div>
+  </section>
+
+  <!-- 2 -->
+  <section class="slide">
+    <div class="eyebrow">Why we're here</div>
+    <h2>A conversation, not a close.</h2>
+    <ul>
+      <li>We want to <b>think out loud together</b> about a single question, with the people who know the guest, the science, and the technology.</li>
+      <li>You'll see a working demonstration — built on <b>public information only</b>, deliberately. It's a prompt for discussion, not a finished product.</li>
+      <li>The goal of the hour: decide whether there's a <b>small, honest pilot</b> worth running — and what it should measure.</li>
+      <li>Every voice in this room changes the answer. We're here to <b>listen as much as show</b>.</li>
+    </ul>
+  </section>
+
+  <!-- 3 -->
+  <section class="slide">
+    <div class="eyebrow">The thesis</div>
+    <h2>Luxury is memory.</h2>
+    <p class="quote">The difference between a vendor and a host is whether they remember you.</p>
+    <p class="lede">In ultra-luxury, the highest compliment is a guest who knows your name. The opposite — a guest who must re-introduce themselves each voyage — is a silent leak of the very equity the brand is built on. Most of what a great host would need to know, the guest has <b>already told the world</b>. The gap is connecting it to the moment of service.</p>
+  </section>
+
+  <!-- 4 -->
+  <section class="slide">
+    <div class="eyebrow">What it is — and isn't</div>
+    <h2>Shorelight informs the crew. It never directs, and never touches the guest automatically.</h2>
+    <div class="two">
+      <div class="card"><h3>What it is</h3><p>Guest intelligence for the people who deliver the experience. A defensible, sourced read — what matters to this guest, ranked, with provenance — that a butler or GM can act on with judgment.</p></div>
+      <div class="card"><h3>What it isn't</h3><p>Not surveillance. Not a script. Not an AI talking to your guest. No private data we can't source. The restraint is the product: what we <i>decline</i> to use is shown on purpose.</p></div>
+    </div>
+    <p class="lede">Think of it as <b>agent-assist for luxury hospitality</b> — augmenting the human touch, never replacing it.</p>
+  </section>
+
+  <!-- 5 -->
+  <section class="slide">
+    <div class="eyebrow">See it live</div>
+    <h2>The same product, shown on the people in this room.</h2>
+    <p class="lede">A standalone, public-source demonstration — Jenn, Rob, and Brandon each rendered the way Shorelight would understand a guest, with every claim sourced and the private-life detail deliberately left out.</p>
+    <a class="link" href="https://shorelight-regent.signalry.ai/">shorelight-regent.signalry.ai →</a>
+    <p class="muted" style="margin-top:18px;font-size:13.5px">Open the landing → enter the demonstration → switch between guest profiles. The three-layer data toggle is the moment: public · upcoming-sailing · internal.</p>
+  </section>
+
+  <!-- 6 -->
+  <section class="slide">
+    <div class="eyebrow">The four questions we should answer together</div>
+    <h2>The honest frame.</h2>
+    <ul>
+      <li><b>Data → inference → recommendation.</b> How does a public signal become a service moment — and where does the crew's judgment stay in charge?</li>
+      <li><b>Sources used, and not used.</b> What's fair game, what's off-limits, and how we make the restraint visible.</li>
+      <li><b>Guest equity.</b> Capturing the upside — which guests deserve bespoke moments — and protecting the downside — which relationships are at risk and what to do.</li>
+      <li><b>The pilot.</b> What we'd prove, and how we'd know — honestly — whether it worked.</li>
+    </ul>
+  </section>
+
+  <!-- 7 -->
+  <section class="slide">
+    <div class="eyebrow">The pilot we'd want</div>
+    <h2>One ship. One KPI. One guardrail. Treatment vs. control.</h2>
+    <ul>
+      <li><b>One primary metric</b> we're trying to move — recognition, advocacy, or repeat intent — declared <i>before</i> we start.</li>
+      <li><b>One guardrail metric</b> we refuse to harm: the felt experience. The "never surveilled" feeling is measured, not assumed.</li>
+      <li><b>A contained scope</b> — a single sailing, a clean control group, before-and-after we can defend.</li>
+      <li><b>Pre-registered success — and a kill rule.</b> A clean null result is a valid, valuable finding.</li>
+    </ul>
+    <p class="lede">This is where the marketing scientist and the AI pilot leader agree: <b>know the metric, protect the other lever, crawl before you run.</b></p>
+  </section>
+
+  <!-- 8 -->
+  <section class="slide">
+    <div class="eyebrow">How we avoid the traps</div>
+    <h2>The fast way fails. We're proposing the right way.</h2>
+    <ul>
+      <li><b>Don't be Klarna.</b> Never optimize efficiency at the experience's expense. For Regent: never let "intelligence" tip into surveillance or scripted service.</li>
+      <li><b>Don't automate the guest.</b> Crew-facing and advisory only — the lower-risk lens, by design.</li>
+      <li><b>Don't sell the big bang.</b> A staged, measured pilot beats a fleet-wide promise we can't yet stand behind.</li>
+      <li><b>Solve the right problem.</b> Surface genuine human moments — don't paper over things a better basic would fix.</li>
+    </ul>
+  </section>
+
+  <!-- 9 -->
+  <section class="slide">
+    <div class="eyebrow">What we'd explore with each of you</div>
+    <h2>The questions we brought for the room.</h2>
+    <div class="ask"><div class="who">Jennefer — the guest &amp; the loyalty engine</div><p>Where does recognition break down today, and which guest moments would most repay getting right? What would make this defensible upward to the Chief Brand Officer?</p></div>
+    <div class="ask"><div class="who">Rob — the science</div><p>Where's the line between a memorable peak and a manufactured one? What does the crew do when the data and their intuition disagree?</p></div>
+    <div class="ask"><div class="who">Brandon — the pilot design</div><p>What's the single KPI and guardrail you'd insist on? Where would you start — internal/crew-facing or guest-facing — and what would make you kill it early?</p></div>
+  </section>
+
+  <!-- 10 -->
+  <section class="slide">
+    <div class="eyebrow">If there's a there there</div>
+    <h2>Possible next steps.</h2>
+    <ul>
+      <li><b>Scope a single-sailing pilot</b> — define the KPI, the guardrail, and the control, together.</li>
+      <li><b>Confirm the data boundary</b> — exactly which sources are in, which are out, and how restraint is shown to the guest.</li>
+      <li><b>A short working session</b> with the crew who'd actually use it — their judgment is the final word.</li>
+      <li><b>Agree the kill rule</b> up front, so a null result is a win for everyone's credibility.</li>
+    </ul>
+    <p class="lede">No commitment today. Just: is this worth a careful first step?</p>
+  </section>
+
+  <!-- 11 -->
+  <section class="slide" style="justify-content:center;align-items:flex-start">
+    <div class="quote" style="max-width:30ch">"Recognition that feels like continuity, not surveillance."</div>
+    <p class="muted" style="margin-top:28px;letter-spacing:.04em">Hawkes &amp; Kwortnik · Shorelight for Regent Seven Seas</p>
+    <a class="link" href="https://shorelight-regent.signalry.ai/">shorelight-regent.signalry.ai</a>
+  </section>
+
+  <div class="progress" id="progress"></div>
+  <div class="foot">Hawkes &amp; Kwortnik — exploratory, confidential</div>
+  <div class="nav"><span class="kbd">←</span> <span class="kbd">→</span> &nbsp;<b id="ct">1</b> / <span id="tot">11</span></div>
+</div>
+<script>
+  const slides=[...document.querySelectorAll('.slide')];
+  let i=0; const tot=slides.length;
+  document.getElementById('tot').textContent=tot;
+  function show(n){
+    i=Math.max(0,Math.min(tot-1,n));
+    slides.forEach((s,k)=>s.classList.toggle('active',k===i));
+    document.getElementById('ct').textContent=i+1;
+    document.getElementById('progress').style.width=((i+1)/tot*100)+'%';
+  }
+  document.addEventListener('keydown',e=>{
+    if(['ArrowRight','PageDown',' '].includes(e.key)) show(i+1);
+    if(['ArrowLeft','PageUp'].includes(e.key)) show(i-1);
+    if(e.key==='Home') show(0); if(e.key==='End') show(tot-1);
+  });
+  document.addEventListener('click',e=>{ if(e.target.closest('a'))return; show(i+1); });
+  show(0);
+</script>
+</body>
+</html>
