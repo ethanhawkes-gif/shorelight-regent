@@ -137,6 +137,7 @@ body{
   box-shadow:0 0 0 3px rgba(27,58,92,.07);
 }
 .topbar-right{display:flex;align-items:center;gap:12px}
+.topbar-right .live-badge{box-shadow:0 1px 8px rgba(46,107,79,.16)}
 .topbar-btn{
   background:#fff;border:1px solid var(--border);border-radius:8px;
   padding:7px 13px;font-size:12px;font-weight:500;letter-spacing:.01em;
@@ -199,18 +200,40 @@ body{
   font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--gold-ink);
 }
 .source-strip span{
-  background:rgba(196,162,101,.10);border:1px solid rgba(196,162,101,.28);
-  border-radius:999px;padding:5px 10px;
+  background:linear-gradient(180deg,rgba(255,255,255,.72),rgba(196,162,101,.09));
+  border:1px solid rgba(196,162,101,.30);
+  border-radius:999px;padding:5px 10px;box-shadow:var(--shadow-hairline);
 }
 .source-note{
-  margin-bottom:16px;padding:11px 13px;border:1px solid rgba(196,162,101,.28);
-  border-left:3px solid var(--gold);border-radius:var(--radius);background:rgba(196,162,101,.07);
-  font-size:11.5px;line-height:1.55;color:var(--muted);
+  position:relative;margin-bottom:16px;padding:14px 16px 14px 58px;
+  border:1px solid rgba(196,162,101,.30);border-left:3px solid var(--gold);
+  border-radius:var(--radius);
+  background:linear-gradient(180deg,#fffdf9,rgba(196,162,101,.07));
+  font-size:11.5px;line-height:1.58;color:var(--muted);box-shadow:var(--shadow-hairline);
+}
+.source-note::before{
+  content:'SRC';position:absolute;left:14px;top:15px;width:30px;height:30px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  background:var(--regent-navy);color:var(--gold);font-size:8.5px;font-weight:800;letter-spacing:.08em;
+  box-shadow:0 0 0 2px rgba(196,162,101,.14);
 }
 .source-note strong{
   display:block;margin-bottom:4px;font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-ink);
 }
 .source-note em{color:var(--text);font-style:normal;font-weight:600}
+.source-legend{
+  display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:-4px 0 18px;
+  padding:10px 12px;border:1px solid var(--border);border-radius:var(--radius);
+  background:rgba(255,255,255,.64);box-shadow:var(--shadow-hairline);
+}
+.source-legend .legend-label{
+  font-size:9.5px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--gold-ink);margin-right:4px;
+}
+.source-legend span:not(.legend-label){
+  font-size:10px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;
+  color:var(--body);background:var(--surface-soft);border:1px solid var(--border);
+  border-radius:999px;padding:4px 9px;
+}
 .spec-hero{
   background:linear-gradient(165deg,var(--regent-navy),#102849 62%,var(--brand));
   border:1px solid rgba(196,162,101,.38);border-top:3px solid var(--gold);
@@ -403,7 +426,7 @@ body{
 }
 @media(max-width:1199px){.guest-selector{overflow-x:auto;flex-wrap:nowrap;-webkit-overflow-scrolling:touch;padding:12px 14px;gap:6px}.guest-selector button{flex-shrink:0;font-size:11px!important;padding:5px 10px!important}.guest-selector span{flex-shrink:0;font-size:9px!important}}
 @media(max-width:1024px){.mobile-header{display:flex!important}.content{padding:20px 20px 48px}.topbar{padding:10px 16px}.search-box{width:160px}.grid{grid-template-columns:1fr}.kpi-row{grid-template-columns:repeat(2,1fr)}.guest-card{flex-direction:column;padding:18px}.confidence-pill{margin-left:0;flex-direction:row;align-items:center;gap:8px}.view-tabs{width:100%;overflow-x:auto}.vtab{padding:8px 12px;font-size:11px;white-space:nowrap}.phase-bar{overflow-x:auto}.ptab{white-space:nowrap;font-size:11px}}
-@media(max-width:768px){.kpi-row{grid-template-columns:repeat(2,1fr)}.topbar{flex-wrap:wrap;gap:8px}.topbar-left{width:100%}.search-box{width:100%;margin-top:4px}.topbar-right{width:100%;justify-content:flex-end}.content{padding:16px 16px 48px}.avatar{width:52px;height:52px;font-size:18px}.guest-meta h2{font-size:17px}.guest-selector{gap:4px;padding:10px 12px}.tags{gap:4px}.tag{font-size:10px;padding:2px 8px}.card-body{padding:14px}.card-body p{font-size:12px}.insight-row{font-size:12px;padding:10px 12px}.crew-prompt .script{font-size:13px}.crew-prompt .timing{font-size:9px}}
+@media(max-width:768px){.kpi-row{grid-template-columns:repeat(2,1fr)}.topbar{flex-wrap:wrap;gap:8px}.topbar-left{width:100%}.search-box{width:100%;margin-top:4px}.topbar-right{display:none}.content{padding:16px 16px 48px}.avatar{width:52px;height:52px;font-size:18px}.guest-meta h2{font-size:17px}.guest-selector{gap:4px;padding:10px 12px}.tags{gap:4px}.tag{font-size:10px;padding:2px 8px}.card-body{padding:14px}.card-body p{font-size:12px}.insight-row{font-size:12px;padding:10px 12px}.crew-prompt .script{font-size:13px}.crew-prompt .timing{font-size:9px}}
 
 /* Moment Engine — ranking wedge */
 .moment{display:flex;gap:15px;align-items:flex-start;padding:16px 0;border-bottom:1px solid var(--border)}
@@ -448,10 +471,10 @@ body{
 </div>
 <nav class="sidebar-nav">
 <div class="nav-section">Navigate</div>
-<div class="nav-item active" onclick="navTo(this,'promise')"><span class="icon">✦</span> The Promise</div>
-<div class="nav-item" onclick="navTo(this,'crew')"><span class="icon">👤</span> Guest Profiles</div>
-<div class="nav-item" onclick="navTo(this,'exec')"><span class="icon">📊</span> Voyage Dashboard</div>
-<div class="nav-item" onclick="navTo(this,'sources')"><span class="icon">🔎</span> Sources &amp; Method</div>
+<div class="nav-item active" data-view="promise" onclick="navTo(this,'promise')"><span class="icon">✦</span> The Promise</div>
+<div class="nav-item" data-view="crew" onclick="navTo(this,'crew')"><span class="icon">◎</span> Guest Profiles</div>
+<div class="nav-item" data-view="exec" onclick="navTo(this,'exec')"><span class="icon">▦</span> Voyage Dashboard</div>
+<div class="nav-item" data-view="sources" onclick="navTo(this,'sources')"><span class="icon">◇</span> Sources &amp; Method</div>
 </nav>
 <div class="sidebar-footer">
 <div class="ship"><span class="dot"></span> Seven Seas Splendor · Live</div>
@@ -474,24 +497,19 @@ body{
 <span class="breadcrumb">Guest Profiles › <strong>Jenn Teegen</strong></span>
 </div>
 <div class="topbar-right">
-<input class="search-box" placeholder="Search guests, suites, preferences..." />
 <div class="live-badge">LIVE</div>
-<button class="topbar-btn">🔔 5</button>
-<button class="topbar-btn">Export PDF</button>
 </div>
 </div>
 
 <div class="content">
 
 <div class="view-tabs">
-<div class="vtab active" onclick="sv('promise')">✦ The Promise</div>
-<div class="vtab" onclick="sv('crew')">🧑‍✈️ Crew View</div>
-<div class="vtab" onclick="sv('exec')">📊 Executive</div>
-<div class="vtab" onclick="sv('sources')">🔎 Sources</div>
-<div class="vtab" onclick="sv('faq')">FAQ</div>
-<div class="vtab" onclick="sv('voice')">Voice Spec</div>
-<div class="vtab" onclick="sv('chat')">💬 Talk to Twin</div>
-<div class="vtab" onclick="sv('roleplay')">🎭 Role Play</div>
+<div class="vtab active" data-view="promise" onclick="sv('promise')">✦ The Promise</div>
+<div class="vtab" data-view="crew" onclick="sv('crew')">◎ Crew View</div>
+<div class="vtab" data-view="exec" onclick="sv('exec')">▦ Executive</div>
+<div class="vtab" data-view="sources" onclick="sv('sources')">◇ Sources</div>
+<div class="vtab" data-view="faq" onclick="sv('faq')">FAQ</div>
+<div class="vtab" data-view="voice" onclick="sv('voice')">Voice Spec</div>
 </div>
 
 <!-- ============ THE PROMISE (hero) ============ -->
@@ -527,6 +545,7 @@ body{
 <span style="font-size:10px;font-weight:600;color:var(--danger);text-transform:uppercase;letter-spacing:.05em">Detractor:</span>
 <button onclick="showGuest('detractor')" class="guest-sel" id="gs-detractor" style="padding:6px 14px;border-radius:6px;font-size:12px;font-weight:500;cursor:pointer;border:1px solid rgba(220,38,38,.3);background:rgba(220,38,38,.06);color:var(--text);transition:all .15s">Chris Riedel</button>
 </div>
+<div class="source-legend"><span class="legend-label">Source cues</span><span>Public source</span><span>Briefing context</span><span>Observed service signal</span><span>Inference labeled</span><span>Private data excluded</span></div>
 
 <!-- ===== JENN TEEGEN GUEST PROFILE ===== -->
 <div id="guest-teegen">
@@ -1666,12 +1685,46 @@ async function sendRp(){
 </div><!-- end main -->
 
 <script>
-function sv(v){document.querySelectorAll('.view').forEach(e=>e.classList.remove('active'));var el=document.getElementById('v-'+v);if(el)el.classList.add('active');document.querySelectorAll('.vtab').forEach(e=>e.classList.remove('active'));var clicked=event.target.closest('.vtab');if(clicked)clicked.classList.add('active')}
+var GUEST_LABELS={
+  teegen:'Jenn Teegen',
+  brandon:'Brandon Teegen',
+  wes:"Wesley D'Silva",
+  janice:'Janice Davidson Pyfer',
+  rector:'Marcia Rector',
+  bittle:'Jim & Pat Bittle',
+  stoddard:'Jim & Barbara Stoddard',
+  advocate:'Marcia Rector',
+  detractor:'Chris Riedel'
+};
+var VIEW_LABELS={
+  promise:'The Promise',
+  crew:'Guest Profiles',
+  exec:'Voyage Dashboard',
+  sources:'Sources & Method',
+  faq:'FAQ',
+  voice:'Voice Spec'
+};
+function setBreadcrumb(view, guest){
+  var crumb=document.querySelector('.breadcrumb');
+  if(!crumb)return;
+  if(view==='crew'&&guest){crumb.innerHTML='Guest Profiles › <strong>'+GUEST_LABELS[guest]+'</strong>';return}
+  crumb.innerHTML='Shorelight › <strong>'+(VIEW_LABELS[view]||'Demo')+'</strong>';
+}
+function setActiveNav(view){
+  document.querySelectorAll('.nav-item').forEach(function(e){e.classList.remove('active')});
+  var nav=document.querySelector('.nav-item[data-view="'+(view==='faq'||view==='voice'?'sources':view)+'"]');
+  if(nav)nav.classList.add('active');
+}
+function sv(v){
+  document.querySelectorAll('.view').forEach(function(e){e.classList.remove('active')});
+  var el=document.getElementById('v-'+v);if(el)el.classList.add('active');
+  document.querySelectorAll('.vtab').forEach(function(e){e.classList.remove('active')});
+  var tab=document.querySelector('.vtab[data-view="'+v+'"]');if(tab)tab.classList.add('active');
+  setActiveNav(v);setBreadcrumb(v);
+}
 function sp(p){document.querySelectorAll('.phase').forEach(e=>e.classList.remove('active'));document.getElementById('p-'+p).classList.add('active');document.querySelectorAll('.ptab').forEach(e=>e.classList.remove('active'));event.target.classList.add('active')}
 
 function navTo(el, view) {
-  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-  el.classList.add('active');
   sv(view);
   window.scrollTo({top: 0, behavior: 'smooth'});
 }
@@ -1680,6 +1733,8 @@ function showGuest(g){
   document.getElementById('guest-'+g).style.display='block';
   document.querySelectorAll('.guest-sel').forEach(e=>{e.style.background='var(--bg)';e.style.color='var(--text)';e.style.borderColor='var(--border)'});
   document.getElementById('gs-'+g).style.background='var(--brand)';document.getElementById('gs-'+g).style.color='#fff';document.getElementById('gs-'+g).style.borderColor='var(--brand)';
+  setBreadcrumb('crew',g);
+  if(history.replaceState)history.replaceState(null,'','#'+g);
 }
 </script>
 <script>(function(){try{var g=(location.hash||"").replace("#","").toLowerCase();var ok=["teegen","brandon","wes","janice","rector","bittle","stoddard","advocate","detractor"];if(ok.indexOf(g)>=0){document.querySelectorAll('.view').forEach(function(e){e.classList.remove('active')});var cv=document.getElementById('v-crew');if(cv)cv.classList.add('active');document.querySelectorAll('.vtab').forEach(function(e){e.classList.remove('active');if(/Crew View/.test(e.textContent))e.classList.add('active')});document.querySelectorAll('.nav-item').forEach(function(e){e.classList.remove('active');if(/Guest Profiles/.test(e.textContent))e.classList.add('active')});var el=document.getElementById("gs-"+g);if(el)el.click();window.scrollTo({top:0});}}catch(e){}})();</script>
