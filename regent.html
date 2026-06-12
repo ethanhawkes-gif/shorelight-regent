@@ -180,6 +180,39 @@ body{
   background-image:linear-gradient(90deg,var(--hairline-gold-soft),var(--hairline-gold),var(--hairline-gold-soft));
   background-repeat:no-repeat;background-size:100% 1px;background-position:top;
 }
+.guest-card.profile-hero{
+  background:
+    radial-gradient(120% 100% at 50% 0%,rgba(196,162,101,.10),transparent 58%),
+    linear-gradient(168deg,var(--regent-navy) 0%,#102849 58%,var(--brand) 100%);
+  border-color:rgba(196,162,101,.38);
+  border-top:3px solid var(--gold);
+  color:#fff;
+}
+.guest-card.profile-hero .guest-meta h2{color:#fff;font-weight:500}
+.guest-card.profile-hero .guest-meta .subtitle{color:rgba(255,255,255,.68);font-weight:300}
+.guest-card.profile-hero .tag{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.16);color:rgba(255,255,255,.78)}
+.guest-card.profile-hero .tag.pref{background:rgba(196,162,101,.14);border-color:rgba(196,162,101,.34);color:#E9D8B4}
+.guest-card.profile-hero .confidence-pill .score{color:var(--gold)}
+.guest-card.profile-hero .confidence-pill .label{color:rgba(255,255,255,.52)}
+.source-strip{
+  display:flex;flex-wrap:wrap;gap:8px;margin:-6px 0 18px;
+  font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--gold-ink);
+}
+.source-strip span{
+  background:rgba(196,162,101,.10);border:1px solid rgba(196,162,101,.28);
+  border-radius:999px;padding:5px 10px;
+}
+.signal-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:14px}
+.signal-tile{
+  background:var(--surface-soft);border:1px solid var(--border);border-radius:var(--radius);
+  padding:14px 15px;min-height:116px;
+}
+.signal-tile .signal-label{
+  font-size:9.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--gold-ink);margin-bottom:7px;
+}
+.signal-tile .signal-text{font-size:12.5px;line-height:1.55;color:var(--body)}
+@media(max-width:1024px){.signal-grid{grid-template-columns:1fr}}
 .avatar{
   width:64px;height:64px;border-radius:50%;
   background:linear-gradient(140deg,var(--brand) 0%,var(--regent-navy) 100%);
@@ -570,17 +603,17 @@ body{
 
 <!-- ===== BRANDON TEEGEN GUEST PROFILE ===== -->
 <div id="guest-brandon" style="display:none">
-<div class="guest-card">
+<div class="guest-card profile-hero">
 <div class="avatar" style="background:linear-gradient(135deg,#1B3A5C,#2E6B4F)">BT</div>
 <div class="guest-meta">
 <h2>Brandon Teegen</h2>
-<div class="subtitle">Illustrative onboard guest profile · VP Solutions / Strategy &amp; Solutions at Cresta · Atlanta, GA</div>
+<div class="subtitle">Public-signal guest profile · VP Solutions at Cresta · Atlanta, GA</div>
 <div class="tags">
-<span class="tag pref">📊 ROI-First Operator</span>
-<span class="tag">🤖 Agentic AI</span>
-<span class="tag">☎️ Contact Center</span>
-<span class="tag pref">🧭 Human-in-the-Loop</span>
-<span class="tag">Infrastructure Readiness</span>
+<span class="tag pref">📊 Proof Before Theater</span>
+<span class="tag">🚴 Cyclist</span>
+<span class="tag">🍷 Pretend Sommelier</span>
+<span class="tag pref">🛶 Former Rower</span>
+<span class="tag">Family + Doodle Dad</span>
 </div>
 </div>
 <div class="confidence-pill">
@@ -589,25 +622,32 @@ body{
 </div>
 </div>
 
-<div class="insight-row blue" style="margin-bottom:16px"><span class="insight-icon">ℹ️</span><div><strong>How to read this profile:</strong> This is an <em>illustrative</em> Shorelight read built from public professional sources, not private travel data. Sources: Amplix's June 9, 2026 podcast transcript with Brandon Teegen; Cresta's AI Maturity Blueprint webinar page; CX Current's March 5, 2026 profile; LinkedIn / The Org public career summaries. Every onboard recommendation below is an inference from those sources.</div></div>
+<div class="source-strip">
+<span>Amplix transcript</span><span>LinkedIn public bio</span><span>The Org career arc</span><span>CX Current / Cresta public signal</span><span>Rowing public records</span>
+</div>
 
 <div class="grid">
 <div class="card grid-full">
 <div class="card-header"><div class="card-title">👤 Guest Intelligence — Brandon Teegen</div><span class="card-badge badge-ai">Shorelight AI</span></div>
 <div class="card-body">
-<p><strong>What we know (sourced):</strong> Brandon leads / has led global solutions and strategy work at Cresta, an AI customer-experience platform. He is public about the shift from AI that answers questions to AI that performs actions, and about the need to deploy AI in measured steps with clear business cases, readiness checks, and human supervision.</p>
-<p><strong>Who he is:</strong> A technical commercial operator. He will not be impressed by "AI personalization" as a phrase. He will look for the operating model: which workflows are automated, which humans stay accountable, what systems need to be integrated, what metrics prove value, and where brand trust could be damaged if the automation outruns readiness.</p>
-<div class="insight-row green"><span class="insight-icon">💡</span><div><strong>Decision psychology:</strong> Brandon's lens is "contact center as science experiment": everything important has a metric. Translate Shorelight the same way. Regent's butlers are the agents, crew handoff is the workflow, guest equity is the measurable outcome, and service-memory loss is the infrastructure gap.</div></div>
+<p><strong>What shows up before the title:</strong> husband, father, doodle-dad, collegiate rower, cyclist, pretend sommelier. The work persona is real, but the person is not only a contact-center strategist. He is a builder-athlete with a taste for precision, endurance, good wine, and systems that respect humans.</p>
+<p><strong>Operating read:</strong> Brandon has lived both sides of enterprise growth: Salesforce / Okta scale, Dynamic Signal execution, founder scar tissue, then Cresta's AI-contact-center frontier. He will enjoy a beautiful guest experience, but he will test whether the beauty has machinery underneath it.</p>
+<div class="signal-grid">
+<div class="signal-tile"><div class="signal-label">Endurance</div><div class="signal-text">Rowing and cycling point to patience under load: rhythm, split times, controlled effort, and team coordination without drama.</div></div>
+<div class="signal-tile"><div class="signal-label">Taste</div><div class="signal-text">"Pretend sommelier" is the invitation: let the wine moment be knowledgeable, playful, and precise without making it precious.</div></div>
+<div class="signal-tile"><div class="signal-label">Trust</div><div class="signal-text">Family and dog signals move the service read away from executive flattery and toward a private, low-friction voyage that gives time back.</div></div>
+</div>
+<div class="insight-row green" style="margin-top:14px"><span class="insight-icon">💡</span><div><strong>Decision psychology:</strong> Brandon's lens is "contact center as science experiment": everything important has a metric. Translate Shorelight the same way. Regent's butlers are the agents, crew handoff is the workflow, guest equity is the measurable outcome, and service-memory loss is the infrastructure gap.</div></div>
 </div>
 </div>
 
 <div class="card">
-<div class="card-header"><div class="card-title">🧠 Public Signal → Onboard Read</div></div>
+<div class="card-header"><div class="card-title">🧠 Public Signal → Onboard Behavior</div></div>
 <div class="card-body">
-<p><strong>Agentic workflow:</strong> He has argued AI is moving from answers to actions. Onboard read: he will notice whether Shorelight actually helps crew take the next right action, or merely summarizes preferences.</p>
-<p><strong>ROI discipline:</strong> He talks in handle time, cost per call, CSAT, readiness, and business case. Onboard read: show ranked moments with confidence and expected lever, not a long list of nice-to-have amenities.</p>
-<p><strong>Customer readiness:</strong> He warns that customer-facing automation needs trust and guardrails. Onboard read: emphasize "personalized, never surveilled," opt-in sources, and crew-visible explanations.</p>
-<p><strong>Human escalation:</strong> His model preserves humans for high-stakes, trust-defining moments. Onboard read: Shorelight should make the butler more prepared, not replace the butler.</p>
+<p><strong>AI from answers to actions:</strong> Do not present a summary. Have the butler already act: quiet table, preferred call window, wine shortlist, cycling/rowing-aware shore options, and a one-line reason for each.</p>
+<p><strong>Internal first:</strong> Show the crew assist flow before any guest-facing magic. Butler brief → action taken → source labeled → profile updated. That sequence earns him faster than a claim about personalization.</p>
+<p><strong>Brand governance:</strong> He has warned that AI agents become an extension of brand identity. For Regent, that means the software disappears and the human polish remains.</p>
+<p><strong>Personal boundary:</strong> Use public bio and volunteered preferences only. No family-name theatrics, no overreach. The win is "they understood my rhythm," not "they scraped my life."</p>
 </div>
 </div>
 
@@ -616,19 +656,19 @@ body{
 <div class="card-body">
 <div class="crew-prompt" style="margin-bottom:14px">
 <div class="timing">Embarkation Day</div>
-<div class="script">"Mr. Teegen, welcome aboard. I saw you tend to think about AI through action and readiness, not hype. For this voyage, my brief is simple: keep your preferences consistent across handoffs, explain what we know, and make sure the technology stays invisible unless you ask."</div>
+<div class="script">"Mr. Teegen, welcome aboard. I have a quiet dinner table held, a short wine list ready if you want to play sommelier, and a crew note to keep the tech invisible unless you ask."</div>
 </div>
 <div class="crew-prompt" style="margin-bottom:14px">
 <div class="timing">Day 2 — Sea Day</div>
-<div class="script">"You may appreciate this: the system ranked three moments for you this week and suppressed the rest. The first is continuity across crew rotation; the second is a quiet place for work calls; the third is a dinner pairing with another guest who thinks deeply about AI operations."</div>
+<div class="script">"You may appreciate this: we ranked three useful moments for the week and suppressed the rest. One is continuity across crew rotation, one is a proper work-call pocket, and one is a wine-pairing dinner if you want it."</div>
 </div>
 <div class="crew-prompt" style="margin-bottom:14px">
-<div class="timing">Technical Curiosity</div>
-<div class="script">"The principle is the same as a good contact-center deployment: start with internal assist, prove the value, then expand. Shorelight begins as crew assist, not guest-facing automation."</div>
+<div class="timing">If He Asks How It Works</div>
+<div class="script">"We start where the risk is low: internal crew assist. The brief names the source, recommends the action, and leaves the human accountable. No black box at the point of service."</div>
 </div>
 <div class="crew-prompt">
 <div class="timing">Disembarkation Eve</div>
-<div class="script">"I prepared a one-page voyage memory handoff: what worked, what you changed, and what should persist next time. Nothing private, nothing mysterious — just the service memory you would expect a great human team to keep."</div>
+<div class="script">"I prepared the handoff for your next voyage: what worked, what you changed, and what should persist. Nothing private, nothing mysterious — just service memory a great team should keep."</div>
 </div>
 </div>
 </div>
@@ -645,32 +685,32 @@ body{
 <div class="card grid-full" style="border-top:3px solid var(--brand)">
 <div class="card-header"><div class="card-title">💡 Moment Engine — Brandon's Top 3</div><span class="card-badge badge-ai">29 actions considered → top 3</span></div>
 <div class="card-body">
-<p style="font-size:12px;color:var(--muted);margin-bottom:14px">The product earns Brandon's attention by behaving like a serious deployment: fewer claims, clearer sources, ranked actions, and visible guardrails.</p>
+<p style="font-size:12px;color:var(--muted);margin-bottom:14px">The product earns Brandon's attention by giving him fewer claims, cleaner source labels, and one or two moments that feel personally useful before they feel clever.</p>
 
 <div class="moment">
 <div class="moment-rank">1</div>
 <div class="moment-body">
-<div class="moment-title">Show the crew-assist workflow, not the AI label</div>
-<div class="moment-why">Before asking him to believe in guest-facing magic, show how a butler gets a 60-second brief, acts, and updates the profile after the moment. This maps directly to his internal-first sequencing advice.</div>
-<div class="moment-tags"><span class="lever lever-repeat">Lever: Trust</span><span class="lever lever-adv">Advocacy</span><span class="conf">Confidence: High</span><span class="src">Source: Amplix transcript + Cresta webinar</span></div>
+<div class="moment-title">Wine moment with restraint</div>
+<div class="moment-why">Open with two bottle options tied to dinner, one familiar and one adventurous, then let him choose whether to go deep. It catches the "pretend sommelier" signal without making the service feel like a dossier.</div>
+<div class="moment-tags"><span class="lever lever-repeat">Lever: Trust</span><span class="lever lever-adv">Advocacy</span><span class="conf">Confidence: High</span><span class="src">Source: LinkedIn public bio + onboard preference logic</span></div>
 </div>
 </div>
 
 <div class="moment">
 <div class="moment-rank">2</div>
 <div class="moment-body">
-<div class="moment-title">Frame butler rotation as Regent's infrastructure gap</div>
-<div class="moment-why">His public thesis is that agentic AI exposes hidden infrastructure gaps. Shorelight's sharpest Regent analogue is service memory disappearing when crew rotate.</div>
-<div class="moment-tags"><span class="lever lever-infl">Lever: Influence</span><span class="lever lever-repeat">Repeat</span><span class="conf">Confidence: High</span><span class="src">Source: Amplix transcript inference</span></div>
+<div class="moment-title">Endurance-shaped port option</div>
+<div class="moment-why">Offer a private cycling route, rowing-history angle, or active shore window alongside the standard excursion. It reads the athlete signal as rhythm and agency, not as a generic "fitness" amenity.</div>
+<div class="moment-tags"><span class="lever lever-infl">Lever: Influence</span><span class="lever lever-repeat">Repeat</span><span class="conf">Confidence: Medium-High</span><span class="src">Source: public bio + rowing record</span></div>
 </div>
 </div>
 
 <div class="moment">
 <div class="moment-rank">3</div>
 <div class="moment-body">
-<div class="moment-title">Give him the metric table before the story</div>
-<div class="moment-why">He will want to know how Regent judges whether this is working: prep time saved, missed-preference defects reduced, service recovery rate, repeat intent, and guest-equity lift.</div>
-<div class="moment-tags"><span class="lever lever-adv">Lever: Proof</span><span class="lever lever-infl">Influence</span><span class="conf">Confidence: Medium-High</span><span class="src">Source: ROI / KPI language in public interviews</span></div>
+<div class="moment-title">Show the crew handoff receipt</div>
+<div class="moment-why">When curiosity turns technical, show the before/after: crew brief, action, source, confidence, update. It connects his AI thesis to Regent's real infrastructure gap: service memory disappearing when crew rotate.</div>
+<div class="moment-tags"><span class="lever lever-adv">Lever: Proof</span><span class="lever lever-infl">Influence</span><span class="conf">Confidence: High</span><span class="src">Source: Amplix transcript + Cresta public framing</span></div>
 </div>
 </div>
 </div>
