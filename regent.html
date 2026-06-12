@@ -202,6 +202,40 @@ body{
   background:rgba(196,162,101,.10);border:1px solid rgba(196,162,101,.28);
   border-radius:999px;padding:5px 10px;
 }
+.spec-hero{
+  background:linear-gradient(165deg,var(--regent-navy),#102849 62%,var(--brand));
+  border:1px solid rgba(196,162,101,.38);border-top:3px solid var(--gold);
+  border-radius:var(--radius);padding:26px 28px;color:#fff;margin-bottom:18px;
+  box-shadow:var(--shadow);
+}
+.spec-hero .eyebrow{font-size:10px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin-bottom:9px}
+.spec-hero h2{font-size:24px;font-weight:500;margin-bottom:8px}
+.spec-hero p{font-size:13px;line-height:1.65;color:rgba(255,255,255,.75);max-width:820px}
+.qa-list{display:grid;gap:12px}
+.qa-item{
+  background:var(--card);border:1px solid var(--border);border-left:3px solid var(--gold);
+  border-radius:var(--radius);padding:16px 18px;box-shadow:var(--shadow-hairline);
+}
+.qa-item .q{font-size:13px;font-weight:700;color:var(--regent-navy);margin-bottom:6px}
+.qa-item .a{font-size:12.5px;line-height:1.62;color:var(--body)}
+.spec-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:14px}
+.spec-tile{
+  background:var(--surface-soft);border:1px solid var(--border);border-radius:var(--radius);
+  padding:15px 16px;min-height:130px;
+}
+.spec-tile .label{font-size:9.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--gold-ink);margin-bottom:8px}
+.spec-tile .text{font-size:12.5px;line-height:1.58;color:var(--body)}
+.source-audit{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:14px}
+.source-audit .audit-card{
+  background:var(--surface-soft);border:1px solid var(--border);border-radius:var(--radius);
+  padding:14px 16px;
+}
+.source-audit .audit-card strong{display:block;font-size:11px;color:var(--regent-navy);margin-bottom:6px}
+.source-audit .audit-card p{font-size:12px;line-height:1.55;color:var(--body)}
+.status-chip{display:inline-flex;align-items:center;gap:5px;border-radius:999px;padding:3px 8px;font-size:9.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;margin-top:8px}
+.status-chip.green{background:rgba(46,107,79,.10);color:var(--success)}
+.status-chip.gold{background:rgba(196,162,101,.13);color:var(--gold-ink)}
+@media(max-width:1024px){.spec-grid,.source-audit{grid-template-columns:1fr}.spec-hero{padding:22px 20px}}
 .signal-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:14px}
 .signal-tile{
   background:var(--surface-soft);border:1px solid var(--border);border-radius:var(--radius);
@@ -451,6 +485,8 @@ body{
 <div class="vtab" onclick="sv('crew')">🧑‍✈️ Crew View</div>
 <div class="vtab" onclick="sv('exec')">📊 Executive</div>
 <div class="vtab" onclick="sv('sources')">🔎 Sources</div>
+<div class="vtab" onclick="sv('faq')">FAQ</div>
+<div class="vtab" onclick="sv('voice')">Voice Spec</div>
 <div class="vtab" onclick="sv('chat')">💬 Talk to Twin</div>
 <div class="vtab" onclick="sv('roleplay')">🎭 Role Play</div>
 </div>
@@ -1372,6 +1408,12 @@ body{
 <div class="card-header"><div class="card-title">🔎 Data Sourcing Methodology</div></div>
 <div class="card-body">
 <p><strong>Principle:</strong> Only data the guest would be comfortable knowing we have. Every source classified Green (public), Yellow (shared with consent), or Red (never collect).</p>
+<div class="source-audit">
+<div class="audit-card"><strong>Live link kept</strong><p><em>The Living Promise</em> opens the full-screen promise wheel as a local page, so it remains fast, private, and demo-safe.</p><span class="status-chip green">Verified local target</span></div>
+<div class="audit-card"><strong>External links intentionally removed</strong><p>Public-source claims stay as source labels inside the profile instead of sending the room out to LinkedIn, podcasts, forums, or articles mid-demo.</p><span class="status-chip gold">Cleaner meeting flow</span></div>
+<div class="audit-card"><strong>Source labels preserved</strong><p>Brandon's profile still names LinkedIn public bio, Cal/Atlanta arc, Amplix/CX signal, and rowing/public-record checks where relevant.</p><span class="status-chip green">Attribution visible</span></div>
+<div class="audit-card"><strong>Privacy boundary preserved</strong><p>The page keeps the core rule visible: public, volunteered, and service-observed data only; sensitive records and overheard private remarks are never inputs.</p><span class="status-chip green">Brand-safe</span></div>
+</div>
 <p style="margin-top:12px"><strong>For demo guest profiles:</strong></p>
 <table style="width:100%;border-collapse:collapse;font-size:12px;margin-top:12px">
 <tr style="background:var(--sidebar-bg);color:#fff">
@@ -1393,6 +1435,63 @@ body{
 </div>
 </div>
 </div><!-- end sources view -->
+
+<!-- ============ FAQ ============ -->
+<div class="view" id="v-faq">
+<div class="spec-hero">
+<div class="eyebrow">First Meeting FAQ</div>
+<h2>Questions Brandon and Jenn Should Be Able to Ask Fast</h2>
+<p>This is the clean room for objections: creepiness, data access, integration burden, Cresta's role, and the smallest Regent pilot that would create a real receipt.</p>
+</div>
+<div class="qa-list">
+<div class="qa-item"><div class="q">What is Shorelight in one sentence?</div><div class="a">Shorelight is the guest intelligence layer that helps luxury service teams remember, prioritize, and act on the guest signals that make a voyage feel personally known.</div></div>
+<div class="qa-item"><div class="q">Is this a CRM replacement?</div><div class="a">No. It sits above existing guest, reservation, loyalty, and service systems. The pilot can start from exported data, crew notes, and manually reviewed profiles before any deep integration.</div></div>
+<div class="qa-item"><div class="q">Where does Cresta fit?</div><div class="a">Cresta is the pattern match for operational AI: signal capture, coaching, QA, workflow routing, and measurement. Brandon can pressure-test whether Shorelight's luxury-service loop has the same operating rigor as AI contact-center work.</div></div>
+<div class="qa-item"><div class="q">What should Regent pilot first?</div><div class="a">One voyage or one guest cohort, focused on pre-sailing and onboard high-value guest memory: 60-second crew briefs, source-labeled moment prompts, human approval, landed-action capture, and a before/after handoff receipt.</div></div>
+<div class="qa-item"><div class="q">How do we avoid creepy personalization?</div><div class="a">Every recommendation carries a source label and confidence level. Shorelight uses public, volunteered, reservation, loyalty, and naturally observed service data. It does not use private conversations, sensitive records, medical information, financial status, or unstated personal inference.</div></div>
+<div class="qa-item"><div class="q">What makes this different from generic AI personalization?</div><div class="a">Generic AI creates copy. Shorelight ranks service actions by expected guest-equity impact, shows why each action matters, assigns a human owner, and records what happened so the memory improves next voyage.</div></div>
+<div class="qa-item"><div class="q">What is the proof that matters after 30-60 days?</div><div class="a">Crew adoption, useful signals captured, landed moments, fewer service-memory resets, qualitative guest delight, and evidence that the workflow reduced prep and handoff friction rather than creating more work.</div></div>
+<div class="qa-item"><div class="q">What should not be in v1?</div><div class="a">No autonomous guest-facing action, no black-box scoring, no sensitive-data ingestion, no promise of hard ROI before a receipt exists, and no broad enterprise rollout before one narrow workflow proves it can land.</div></div>
+</div>
+</div><!-- end faq view -->
+
+<!-- ============ VOICE SPEC ============ -->
+<div class="view" id="v-voice">
+<div class="spec-hero">
+<div class="eyebrow">Brand Spec</div>
+<h2>Shorelight Voice for Regent</h2>
+<p>The voice should feel like a great Regent crew member thinking clearly before speaking: precise, discreet, anticipatory, and useful. Never tech-demo loud. Never overfamiliar. Never pretending certainty it does not have.</p>
+</div>
+<div class="grid">
+<div class="card grid-full">
+<div class="card-header"><div class="card-title">Voice Rules</div><span class="card-badge badge-ai">Brand Guardrail</span></div>
+<div class="card-body">
+<div class="spec-grid">
+<div class="spec-tile"><div class="label">Register</div><div class="text">Quiet luxury operations. Short sentences. Concrete nouns. The system speaks like a senior service lead, not a chatbot, concierge brochure, or software vendor.</div></div>
+<div class="spec-tile"><div class="label">Default stance</div><div class="text">Helpful and source-aware. Use "we know," "we have observed," or "likely" only when the evidence supports it. Put uncertainty where the crew can see it.</div></div>
+<div class="spec-tile"><div class="label">Service posture</div><div class="text">Anticipate without performing. The best line sounds like someone already handled the obvious thing and left the guest more at ease.</div></div>
+<div class="spec-tile"><div class="label">Do say</div><div class="text">"Source: prior sommelier note." "Confidence: medium." "Offer quietly." "Human approval required." "This may matter because..."</div></div>
+<div class="spec-tile"><div class="label">Do not say</div><div class="text">"The AI knows." "Surprise and delight at scale." "360-degree view." "We inferred from private behavior." "This guest will definitely..."</div></div>
+<div class="spec-tile"><div class="label">Creepiness line</div><div class="text">If a guest would ask "how did you know that?" and the answer feels awkward, the system should not recommend the action.</div></div>
+</div>
+</div>
+</div>
+<div class="card">
+<div class="card-header"><div class="card-title">Crew Prompt Pattern</div></div>
+<div class="card-body">
+<p><strong>Structure:</strong> action first, source second, confidence third, human judgment last.</p>
+<div class="script" style="margin-top:12px">"Offer a quiet two-option wine path tonight. Source: prior sommelier note and public wine interest. Confidence: medium. Keep it optional; do not perform the research."</div>
+</div>
+</div>
+<div class="card">
+<div class="card-header"><div class="card-title">Executive Prompt Pattern</div></div>
+<div class="card-body">
+<p><strong>Structure:</strong> workflow, risk, measurement, next decision.</p>
+<div class="script" style="margin-top:12px">"Pilot one cohort on one voyage. Measure useful signals captured, landed moments, crew adoption, and service-memory resets. No autonomous guest-facing action."</div>
+</div>
+</div>
+</div>
+</div><!-- end voice view -->
 
 <!-- ============ TWIN CHAT ============ -->
 <div class="view" id="v-chat">
